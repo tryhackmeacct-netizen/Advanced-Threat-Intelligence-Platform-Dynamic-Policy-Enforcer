@@ -11,4 +11,4 @@ and dynamically blocks malicious IPs using iptables.
 - MongoDB
 - Linux
 - ELK Stack
-- iptables# ubuntu-setup
+- iptables
