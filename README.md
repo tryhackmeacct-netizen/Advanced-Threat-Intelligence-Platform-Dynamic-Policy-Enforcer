@@ -1,14 +1,22 @@
-# Advanced Threat Intelligence Platform
+# Advanced Threat Intelligence Platform & Dynamic Policy Enforcer
 
-## Internship Project
+## Project Overview
+This project is designed to automate threat intelligence collection, IOC analysis, and dynamic firewall policy enforcement using Python, MongoDB, ELK Stack, and Linux iptables.
 
-This project collects OSINT threat intelligence feeds,
-stores malicious indicators in MongoDB,
-and dynamically blocks malicious IPs using iptables.
+## Features
+- OSINT Threat Feed Aggregation
+- IOC Normalization
+- MongoDB Threat Storage
+- Dynamic Firewall Blocking
+- ELK Stack Integration
+- Kibana Dashboard Visualization
 
-## Technologies
+## Technologies Used
 - Python
 - MongoDB
-- Linux
-- ELK Stack
-- iptables
+- Elasticsearch
+- Kibana
+- Linux iptables
+
+## Author
+Sanket Pawar
