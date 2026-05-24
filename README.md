@@ -18,5 +18,10 @@ This project is designed to automate threat intelligence collection, IOC analysi
 - Kibana
 - Linux iptables
 
+## Current Progress
+- MongoDB integration completed
+- IOC storage working
+- Threat intelligence database operational
+
 ## Author
 Sanket Pawar
