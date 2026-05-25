@@ -150,6 +150,43 @@ These can be used in internship review to show:
 - Python automation executed successfully
 - The firewall rule was added and is active
 
+## Week 1 Checklist
+### Completed
+- [x] Python-based project structure created
+- [x] MongoDB integration added
+- [x] Deduplication logic implemented
+- [x] Risk scoring logic implemented
+- [x] Firewall blocking implemented
+- [x] README and review screenshots added
+
+### Pending
+- [ ] Integrate at least 3 public OSINT feeds
+- [ ] Add a real feed ingestion pipeline
+- [ ] Normalize feed output before storing
+- [ ] Add daily commit tracking
+
+## Daily Commit Plan
+### Day 1
+- Create project structure
+- Add MongoDB connectivity
+- Add basic IOC insertion logic
+
+### Day 2
+- Add cleaning and deduplication logic
+- Add risk scoring
+
+### Day 3
+- Add firewall automation
+- Verify `iptables` rule creation
+
+### Day 4
+- Add README and review screenshots
+- Update documentation for demo flow
+
+### Day 5
+- Add at least 3 feed integrations
+- Finalize Week 1 deliverables
+
 ## Notes
 - `python3 main.py` will show `[-] Duplicate IOC found` when the same IOC is already stored.
 - Use `python3 main.py --ip 1.2.3.4` to test a fresh IP without editing the source code.
