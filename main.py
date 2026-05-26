@@ -1,57 +1,44 @@
 import argparse
-from datetime import datetime
 
-from pymongo import MongoClient
+from core.cleaner import clean_indicator
+from core.config import DEFAULT_FEED_INDICATORS, ENABLE_DEMO_FALLBACK
+from core.logger import get_logger
+from core.pipeline import run_demo, run_live
 
-from normalization.cleaner import clean_ip
-from normalization.deduplicator import is_duplicate
-from normalization.risk_scoring import calculate_risk
-from policy_enforcer.firewall_manager import block_ip
+logger = get_logger()
 
 
-parser = argparse.ArgumentParser(description="Dynamic Threat Intelligence Policy Enforcer")
+def resolve_indicators(ip_values):
+    if ip_values:
+        return [clean_indicator(ip) for ip in ip_values]
+
+    return [clean_indicator(ip) for ip in DEFAULT_FEED_INDICATORS]
+
+
+parser = argparse.ArgumentParser(description="Threat Intelligence Platform and Dynamic Policy Enforcer")
+parser.add_argument("--demo", action="store_true", help="Run the demo fallback pipeline")
+parser.add_argument("--live", action="store_true", help="Run live feed ingestion when API keys are configured")
 parser.add_argument(
     "--ip",
-    default="8.8.8.8",
-    help="Malicious IP address to process (default: 8.8.8.8)",
+    action="append",
+    dest="ip_values",
+    help="Override the indicator list for demo or live ingestion",
 )
 args = parser.parse_args()
 
-# Connect to MongoDB
-client = MongoClient("mongodb://localhost:27017/")
+mode = "live" if args.live else "demo"
 
-# Select database
-db = client["threat_intelligence"]
-
-# Select collection
-collection = db["ioc_data"]
-
-# Clean IP address
-cleaned_ip = clean_ip(args.ip)
-
-# Check duplicate IOC
-if not is_duplicate(collection, cleaned_ip):
-
-    # Calculate risk score
-    risk_score = calculate_risk("VirusTotal")
-
-    # Create IOC document
-    ioc_document = {
-        "ip": cleaned_ip,
-        "source": "VirusTotal",
-        "risk_score": risk_score,
-        "status": "malicious",
-        "timestamp": str(datetime.utcnow())
-    }
-
-    # Insert into MongoDB
-    collection.insert_one(ioc_document)
-
-    print("[+] IOC inserted successfully")
-
-    # Automatically block high-risk IPs
-    if risk_score >= 80:
-        block_ip(cleaned_ip)
-
+if args.live:
+    logger.info("Running live ingestion mode")
 else:
-    print("[-] Duplicate IOC found")
+    logger.info("Running demo ingestion mode")
+
+if args.live:
+    indicators = resolve_indicators(args.ip_values)
+    run_live(indicators)
+else:
+    if ENABLE_DEMO_FALLBACK:
+        indicators = resolve_indicators(args.ip_values)
+        run_demo(indicators)
+    else:
+        logger.warning("Demo fallback disabled and no live mode selected")

@@ -1,14 +1,5 @@
+from core.risk_scoring import calculate_risk as core_calculate_risk
+
+
 def calculate_risk(source):
-    """
-    Assign a risk score based on the IOC source.
-    """
-    if source == "VirusTotal":
-        return 90
-
-    if source == "AbuseIPDB":
-        return 85
-
-    if source == "AlienVault":
-        return 80
-
-    return 40
+    return core_calculate_risk(source)
