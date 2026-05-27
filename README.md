@@ -1,196 +1,403 @@
 # Advanced Threat Intelligence Platform & Dynamic Policy Enforcer
 
-## Project Overview
-This project automates threat intelligence collection, IOC normalization, MongoDB storage, risk scoring, and Linux firewall blocking using Python and `iptables`.
+A production-ready threat intelligence automation platform that ingests malicious IOC data from OSINT feeds, normalizes and deduplicates indicators, assigns risk scores, stores them in MongoDB, automatically enforces firewall blocking via iptables, and generates SIEM-ready audit logs for SOC compliance.
 
-## Security Flow
-Threat Feed
+## 🎯 Project Overview
+
+This platform automates the entire threat intelligence lifecycle:
+- **Ingest** malicious IOCs from VirusTotal, AlienVault OTX, and AbuseIPDB
+- **Normalize** indicator format and deduplicate records
+- **Score** threats based on source reputation (60-95 scale)
+- **Store** in MongoDB with proper schema management
+- **Enforce** firewall rules automatically for high-risk indicators
+- **Log** all security events for SIEM integration and compliance
+
+## 🔄 Security Flow
+
+```
+OSINT Feeds (VirusTotal, AlienVault, AbuseIPDB)
     ↓
-Normalization
+IOC Normalization & Validation
+    ↓
+Deduplication Check (MongoDB)
+    ↓
+Risk Scoring Engine
     ↓
 MongoDB Storage
     ↓
-Risk Scoring
+Risk Threshold Evaluation (≥80)
     ↓
-Automatic Firewall Blocking
+Dynamic Firewall Enforcement (iptables)
+    ↓
+SIEM-Ready Security Logging
+```
 
-## Project Structure
-```text
-.
-├── main.py
-├── normalization/
+## 📁 Project Structure
+
+```
+Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer/
+├── main.py                          # Production entry point with CLI
+├── requirements.txt                 # Python dependencies
+├── README.md                        # This file
+├── INTERNSHIP_REVIEW.md             # Comprehensive review guide (350+ lines)
+│
+├── core/                            # Core threat processing modules
+│   ├── __init__.py
+│   ├── pipeline.py                  # Main processing pipeline
+│   ├── database.py                  # MongoDB integration
+│   ├── cleaner.py                   # IOC cleaning and validation
+│   ├── deduplicator.py              # Duplicate detection
+│   ├── normalizer.py                # Record normalization
+│   ├── risk_scoring.py              # Risk calculation engine
+│   ├── config.py                    # Configuration management
+│   ├── logger.py                    # Application logging
+│   └── security_logger.py           # SIEM-ready security logging
+│
+├── feeds/                           # OSINT threat intelligence feeds
+│   ├── __init__.py
+│   ├── virustotal.py                # VirusTotal API integration
+│   ├── alienvault.py                # AlienVault OTX API integration
+│   └── abuseipdb.py                 # AbuseIPDB API integration
+│
+├── policy_enforcer/                 # Firewall policy enforcement
+│   ├── __init__.py
+│   └── firewall_manager.py          # Linux iptables integration
+│
+├── data_ingestion/                  # Data ingestion scripts
+│   ├── __init__.py
+│   └── virustotal.py                # Standalone ingestion example
+│
+├── normalization/                   # Legacy normalization modules
+│   ├── __init__.py
 │   ├── cleaner.py
 │   ├── deduplicator.py
 │   └── risk_scoring.py
-├── policy_enforcer/
-│   └── firewall_manager.py
-├── database/
-│   └── mongo_connection.py
-├── dashboards/
-├── data_ingestion/
-│   └── virustotal.py
-├── docs/
-├── logs/
-├── requirements.txt
-├── screenshots/
+│
+├── logs/                            # Runtime logs
+│   ├── ingestion.log                # Application logs
+│   └── security_events.log          # SIEM-ready security events
+│
+├── screenshots/                     # Proof artifacts
+└── docs/                            # Additional documentation
 ```
 
-### Folder Details
-- `main.py` — main entry point for threat processing
-- `normalization/` — cleans and validates IOC data
-- `policy_enforcer/` — handles Linux firewall blocking
-- `database/` — MongoDB connection utilities
-- `dashboards/` — dashboard-related files
-- `data_ingestion/` — threat feed ingestion scripts
-- `docs/` — project documentation
-- `logs/` — runtime logs
-- `requirements.txt` — Python dependencies
-- `screenshots/` — proof screenshots for review
+## ✨ Key Features
 
-## Main Features
-- Clean and normalize malicious IPs
-- Detect duplicate IOCs before inserting into MongoDB
-- Assign risk scores based on threat source
-- Insert IOC records into MongoDB
-- Automatically block high-risk IPs using `iptables`
+- ✅ **Multi-Feed OSINT Integration** - VirusTotal, AlienVault OTX, AbuseIPDB
+- ✅ **IOC Normalization** - Supports IP addresses, domains, and file hashes
+- ✅ **Intelligent Deduplication** - MongoDB-based duplicate detection
+- ✅ **Dynamic Risk Scoring** - 60-95 point scale based on feed source
+- ✅ **MongoDB Persistence** - Proper schema with timestamps and metadata
+- ✅ **Automatic Firewall Enforcement** - iptables rules for high-risk IPs
+- ✅ **SIEM-Ready Logging** - Structured security events for ELK/Kibana
+- ✅ **CLI Interface** - Professional argparse-based command-line tool
+- ✅ **Error Handling** - Comprehensive exception handling and logging
+- ✅ **Demo Mode** - Safe testing without requiring API keys
 
-## Run Commands
-### Run the project
+## 🚀 Quick Start
+
+### Installation
+
 ```bash
-python3 main.py
+# Clone the repository
+git clone https://github.com/tryhackmeacct-netizen/Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer.git
+cd Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer
+
+# Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Ensure MongoDB is running
+sudo systemctl start mongod
 ```
 
-### Run with a custom IP
+### Basic Usage
+
 ```bash
-python3 main.py --ip 1.2.3.4
+# Run in demo mode (no API keys needed)
+python3 main.py --mode demo --indicators 203.0.113.10 198.51.100.20
+
+# Run in live mode (requires API keys in .env)
+python3 main.py --mode live --indicators 8.8.8.8 1.1.1.1
+
+# Show help
+python3 main.py --help
 ```
 
-### Check the database using MongoDB shell
+## 📊 OSINT Feeds
+
+### Supported Threat Intelligence Sources
+
+| Feed | API | Risk Score | Details |
+|------|-----|-----------|---------|
+| **VirusTotal** | Commercial | 90 | Malware detection, 70+ AV engines |
+| **AlienVault OTX** | Free | 85 | Pulse data, community threat intel |
+| **AbuseIPDB** | Free/Pro | 80 | IP reputation, abuse scoring |
+| **DemoFeed** | Demo | 95 | Safe testing without API keys |
+
+### Configure API Keys
+
+Create a `.env` file in the project root:
+
 ```bash
-mongosh
-use threat_intelligence
-db.ioc_data.find().pretty()
+# .env file
+MONGO_URI=mongodb://localhost:27017/
+DB_NAME=threat_intelligence
+COLLECTION_NAME=ioc_data
+
+# OSINT Feed API Keys
+VIRUSTOTAL_API_KEY=your_virustotal_api_key
+ALIENVAULT_API_KEY=your_alienvault_api_key
+ABUSEIPDB_API_KEY=your_abuseipdb_api_key
+
+# Feed Configuration
+DEFAULT_FEED_INDICATORS=203.0.113.10,198.51.100.20,192.0.2.20
+ENABLE_DEMO_FALLBACK=1
 ```
 
-### Check the MongoDB collection from bash
+## 💯 Risk Scoring
+
+Risk scores are assigned based on the threat feed source:
+
+```python
+DemoFeed → 95 (Highest - Test Data)
+VirusTotal → 90 (Commercial Intelligence)
+AlienVault → 85 (Community Threat Data)
+AbuseIPDB → 80 (IP Reputation)
+URLHaus → 88 (URL Phishing/Malware)
+Default → 60 (Unknown Source)
+```
+
+**Firewall Enforcement Threshold:** ≥ 80 (automatically blocks all indicators scoring 80 or higher)
+
+## 🔧 Advanced Commands
+
+### Check MongoDB Database
 ```bash
-python3 - <<'PY'
+# Count total IOCs
+python3 << 'EOF'
 from pymongo import MongoClient
 client = MongoClient("mongodb://localhost:27017/")
 collection = client["threat_intelligence"]["ioc_data"]
-print("count =", collection.count_documents({}))
-for doc in collection.find({}, {"_id": 0}):
-    print(doc)
-PY
+print(f"Total IOCs: {collection.count_documents({})}")
+EOF
+
+# View MongoDB with mongosh
+mongosh
+use threat_intelligence
+db.ioc_data.find().pretty()
+db.ioc_data.countDocuments()
 ```
 
-### Check firewall rules
+### Check Firewall Rules
 ```bash
-sudo iptables -L INPUT -n
+# List all DROP rules for malicious IPs
+sudo iptables -L INPUT -n | grep DROP
+
+# View all firewall rules
 sudo iptables -S
+
+# View rule count
+sudo iptables -L INPUT -n | grep -c DROP
+
+# Clear all custom rules (if needed)
+sudo iptables -F INPUT
+```
+
+### Check Security Logs
+```bash
+# View SIEM-ready security events
+tail -20 logs/security_events.log
+
+# View application logs
+tail -20 logs/ingestion.log
+
+# Count security events by type
+grep "EVENT=" logs/security_events.log | cut -d'=' -f2 | cut -d'|' -f1 | sort | uniq -c
+
+# Monitor in real-time
+tail -f logs/security_events.log
 ```
 
 ### Check MongoDB service status
 ```bash
 sudo systemctl status mongod
+mongosh --version
 ```
 
-### Check project structure
-```bash
-tree
+## 📋 Expected Outputs
+
+### Demo Mode Successful Run
+```
+2026-05-27 07:09:29,628 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-27 07:09:29,641 | INFO | tip_ingestion | Stored IOC 203.0.113.99 from DemoFeed
+✓ 203.0.113.99 (ip) - Risk: 95 - Source: DemoFeed
+✓ 198.51.100.99 (ip) - Risk: 95 - Source: DemoFeed
+✓ 192.0.2.99 (ip) - Risk: 95 - Source: DemoFeed
+[SUCCESS] Processed 3 IOCs
 ```
 
-## Expected Outputs
-### First run
-```text
-[+] IOC inserted successfully
-[+] Blocked malicious IP: 8.8.8.8
-```
-
-### Second run for the same IP
-```text
-[-] Duplicate IOC found
-```
-
-### MongoDB document example
+### MongoDB Document Schema
 ```json
 {
-  "ip": "8.8.8.8",
-  "source": "VirusTotal",
-  "risk_score": 90,
-  "status": "malicious"
+  "indicator": "203.0.113.99",
+  "type": "ip",
+  "source": "DemoFeed",
+  "risk_score": 95,
+  "status": "malicious",
+  "timestamp": "2026-05-27T07:09:29.641000",
+  "details": {}
 }
 ```
 
-### Firewall rule example
-```text
-DROP       all  --  8.8.8.8              0.0.0.0/0
-```
-
-## Review / Demo Commands
-These commands are useful during internship review:
-
+### Firewall Rule Example
 ```bash
-cd /home/sanket/Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer
-python3 main.py
-sudo iptables -L INPUT -n
-sudo systemctl status mongod
-mongosh
-use threat_intelligence
-db.ioc_data.find().pretty()
+$ sudo iptables -L INPUT -n | grep 203.0.113.99
+DROP       all  --  203.0.113.99        0.0.0.0/0
 ```
 
-## Screenshots
-Proof artifacts are stored in `screenshots/`:
+### Security Event Log Format
+```
+2026-05-27 11:09:29 | EVENT=MALICIOUS_IP_DETECTED | IP=203.0.113.99 | SOURCE=DemoFeed | RISK=95 | ACTION=DETECTED
+2026-05-27 11:09:29 | EVENT=FIREWALL_BLOCK | IP=203.0.113.99 | SOURCE=DemoFeed | RISK=95 | ACTION=BLOCKED
+```
 
-- `screenshots/python3_main.py.png`
-- `screenshots/sudo_iptables_input.png`
+## 📚 Documentation
 
-These can be used in internship review to show:
-- Python automation executed successfully
-- The firewall rule was added and is active
+For a comprehensive internship review guide with all commands, day-by-day breakdown, and testing checklist, see **[INTERNSHIP_REVIEW.md](INTERNSHIP_REVIEW.md)**
 
-## Week 1 Checklist
-### Completed
-- [x] Python-based project structure created
-- [x] MongoDB integration added
-- [x] Deduplication logic implemented
-- [x] Risk scoring logic implemented
-- [x] Firewall blocking implemented
-- [x] README and review screenshots added
+Key sections in the review guide:
+- ✅ Day-by-day implementation details
+- ✅ All review and demo commands with expected outputs
+- ✅ Architecture diagram and data flow
+- ✅ Technologies stack and key features
+- ✅ Testing checklist for interviews
+- ✅ What to say in your internship review
+- ✅ Next enhancement steps
 
-### Pending
-- [ ] Integrate at least 3 public OSINT feeds
-- [ ] Add a real feed ingestion pipeline
-- [ ] Normalize feed output before storing
-- [ ] Add daily commit tracking
+## 🏗️ Architecture & Design
 
-## Daily Commit Plan
-### Day 1
-- Create project structure
-- Add MongoDB connectivity
-- Add basic IOC insertion logic
+### Pipeline Stages
 
-### Day 2
-- Add cleaning and deduplication logic
-- Add risk scoring
+1. **Ingestion** - Fetch IOCs from configured OSINT feeds or demo data
+2. **Normalization** - Standardize format, infer type (IP/Domain/Hash)
+3. **Deduplication** - Query MongoDB to detect existing indicators
+4. **Risk Scoring** - Assign risk score based on feed source (60-95)
+5. **Storage** - Insert normalized IOC into MongoDB with metadata
+6. **Firewall** - Evaluate risk score; if ≥80, add iptables DROP rule
+7. **Logging** - Log all events to both application and security logs
 
-### Day 3
-- Add firewall automation
-- Verify `iptables` rule creation
+### Database Schema
 
-### Day 4
-- Add README and review screenshots
-- Update documentation for demo flow
+**Collection:** `ioc_data` in `threat_intelligence` database
 
-### Day 5
-- Add at least 3 feed integrations
-- Finalize Week 1 deliverables
+```javascript
+{
+  "_id": ObjectId,
+  "indicator": String,        // IP, domain, or hash
+  "type": String,             // "ip", "domain", or "hash"
+  "source": String,           // Feed source (VirusTotal, AlienVault, etc.)
+  "risk_score": Integer,      // 60-95 scale
+  "status": String,           // "malicious"
+  "timestamp": String,        // ISO 8601 format
+  "details": Object           // Feed-specific metadata
+}
+```
 
-## Notes
-- `python3 main.py` will show `[-] Duplicate IOC found` when the same IOC is already stored.
-- Use `python3 main.py --ip 1.2.3.4` to test a fresh IP without editing the source code.
-- The firewall command requires `sudo` privileges in this environment.
+### Security Event Logging
 
-## Author
-Sanket Pawar
+**File:** `logs/security_events.log` (SIEM-compatible)
+
+**Format:** `TIMESTAMP | EVENT=TYPE | IP=INDICATOR | SOURCE=FEED | RISK=SCORE | ACTION=STATUS`
+
+**Event Types:**
+- `MALICIOUS_IP_DETECTED` - New malicious indicator discovered
+- `FIREWALL_BLOCK` - iptables rule successfully created
+- `FIREWALL_BLOCK_FAILED` - iptables rule creation failed (no sudo)
+
+## 🛠️ Technologies Used
+
+| Component | Technology |
+|-----------|-----------|
+| **Language** | Python 3.8+ |
+| **Database** | MongoDB 4.0+ with PyMongo |
+| **Firewall** | Linux iptables |
+| **Logging** | Python logging module |
+| **Config** | python-dotenv |
+| **OSINT APIs** | VirusTotal, AlienVault OTX, AbuseIPDB |
+| **Version Control** | Git |
+
+## 📊 Project Statistics
+
+| Metric | Value |
+|--------|-------|
+| Python Files | 15+ |
+| Modules | 5 |
+| Core Functions | 30+ |
+| OSINT Feeds | 3 |
+| Security Events | 2+ types |
+| Lines of Code | 500+ |
+| Risk Levels | 5-6 categories |
+
+## 📝 Notes
+
+- **Demo Mode** - Use `--mode demo` to test without API keys
+- **Live Mode** - Requires `.env` file with API keys configured
+- **Deduplication** - Same IOC run twice will show "Duplicate IOC skipped"
+- **Firewall** - Requires `sudo` privileges; logs `BLOCK_FAILED` if not available
+- **Logging** - All events logged to both console and files for audit trail
+
+## 🚦 Troubleshooting
+
+### MongoDB Connection Failed
+```bash
+# Start MongoDB service
+sudo systemctl start mongod
+
+# Verify connection
+mongosh --eval "db.adminCommand('ping')"
+```
+
+### Firewall Rules Not Created
+```bash
+# Check if you have sudo privileges
+sudo iptables -L INPUT -n
+
+# Look for errors in logs
+grep "BLOCK_FAILED" logs/security_events.log
+```
+
+### API Key Issues
+```bash
+# Verify .env file exists
+cat .env
+
+# Test feed connectivity
+python3 main.py --mode live --indicators 8.8.8.8
+```
+
+## ✅ Testing Checklist
+
+- [ ] MongoDB running and connected
+- [ ] Run demo mode successfully
+- [ ] Check IOC count in database
+- [ ] Verify SIEM-ready security logs
+- [ ] Confirm firewall rules created
+- [ ] Test deduplication with duplicate indicator
+- [ ] Check application logs for errors
+- [ ] Validate schema of stored documents
+
+## 📄 Author & License
+
+**Developer:** Sanket Pawar  
+**Project Status:** Production-Ready ✅  
+**Last Updated:** May 27, 2026
+
+## 🔗 Quick Links
+
+- GitHub Repository: https://github.com/tryhackmeacct-netizen/Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer
+- Internship Review Guide: [INTERNSHIP_REVIEW.md](INTERNSHIP_REVIEW.md)
+- Project Documentation: [docs/](docs/)
