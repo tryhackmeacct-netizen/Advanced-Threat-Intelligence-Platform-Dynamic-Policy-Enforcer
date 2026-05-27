@@ -1,0 +1,50 @@
+2026-05-25 13:22:31,184 | INFO | tip_ingestion | Running demo ingestion mode
+2026-05-25 13:22:31,201 | INFO | tip_ingestion | Stored IOC 203.0.113.10 from DemoFeed
+2026-05-25 13:22:31,221 | INFO | tip_ingestion | Stored IOC 198.51.100.20 from DemoFeed
+2026-05-25 13:22:31,231 | INFO | tip_ingestion | Stored IOC 192.0.2.20 from DemoFeed
+2026-05-25 13:29:45,579 | INFO | tip_ingestion | Running demo ingestion mode
+2026-05-25 13:29:45,585 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-25 13:29:45,586 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-25 13:29:45,588 | INFO | tip_ingestion | Duplicate IOC skipped: 192.0.2.20
+2026-05-25 13:38:07,607 | INFO | tip_ingestion | Running demo ingestion mode
+2026-05-25 13:38:07,613 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-25 13:38:07,614 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-25 13:38:07,614 | INFO | tip_ingestion | Duplicate IOC skipped: 192.0.2.20
+2026-05-25 13:42:12,742 | INFO | tip_ingestion | Running demo ingestion mode
+2026-05-25 13:42:12,749 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-25 13:42:12,750 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-25 13:42:12,751 | INFO | tip_ingestion | Duplicate IOC skipped: 192.0.2.20
+2026-05-25 13:48:30,033 | INFO | tip_ingestion | Running demo ingestion mode
+2026-05-25 13:48:30,084 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-25 13:48:30,085 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-25 13:48:30,086 | INFO | tip_ingestion | Duplicate IOC skipped: 192.0.2.20
+2026-05-25 13:49:28,497 | INFO | tip_ingestion | Running demo ingestion mode
+2026-05-25 13:49:28,505 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-25 13:49:28,506 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-25 13:49:28,506 | INFO | tip_ingestion | Duplicate IOC skipped: 192.0.2.20
+2026-05-26 13:22:41,798 | INFO | tip_ingestion | Stored IOC 203.0.113.77 from DemoFeed
+2026-05-26 14:34:46,562 | INFO | tip_ingestion | Running demo ingestion mode
+2026-05-26 14:34:46,586 | INFO | tip_ingestion | Duplicate IOC skipped: 8.8.8.8
+2026-05-26 14:34:46,589 | INFO | tip_ingestion | Duplicate IOC skipped: 1.2.3.4
+2026-05-26 14:42:58,902 | INFO | tip_ingestion | Running demo ingestion mode
+2026-05-26 14:42:58,913 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-26 14:42:58,914 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-26 14:42:58,915 | INFO | tip_ingestion | Duplicate IOC skipped: 192.0.2.20
+2026-05-26 14:44:05,644 | INFO | tip_ingestion | Running live ingestion mode
+2026-05-26 14:44:05,645 | ERROR | tip_ingestion | Feed VirusTotal failed: VIRUSTOTAL_API_KEY is not configured
+2026-05-26 14:44:05,645 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-05-26 14:44:05,646 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-05-26 14:44:05,646 | WARNING | tip_ingestion | No live indicators were returned by any feed
+2026-05-27 07:09:20,503 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-27 07:09:20,503 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-05-27 07:09:20,525 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-27 07:09:20,526 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-27 07:09:20,526 | INFO | tip_ingestion | Duplicate IOC skipped: 192.0.2.20
+2026-05-27 07:09:20,527 | WARNING | tip_ingestion | No new indicators were processed
+2026-05-27 07:09:20,528 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-05-27 07:09:29,628 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-27 07:09:29,628 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-05-27 07:09:29,641 | INFO | tip_ingestion | Stored IOC 203.0.113.99 from DemoFeed
+2026-05-27 07:09:29,672 | INFO | tip_ingestion | Stored IOC 198.51.100.99 from DemoFeed
+2026-05-27 07:09:29,683 | INFO | tip_ingestion | Stored IOC 192.0.2.99 from DemoFeed
+2026-05-27 07:09:29,692 | INFO | tip_ingestion | [SUCCESS] Processed 3 IOCs
