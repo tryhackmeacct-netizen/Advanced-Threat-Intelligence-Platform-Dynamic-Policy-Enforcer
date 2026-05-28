@@ -50,7 +50,7 @@ def main():
         args.mode.upper(),
         len(indicators),
     )
-
+    
     try:
         if args.mode == "demo":
             logger.info("Running in DEMO mode with %d indicators", len(indicators))
