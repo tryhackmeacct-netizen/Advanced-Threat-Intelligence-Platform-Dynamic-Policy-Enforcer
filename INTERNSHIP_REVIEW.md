@@ -345,7 +345,7 @@ options:
 | APIs | VirusTotal, AlienVault OTX, AbuseIPDB |
 | Version Control | Git |
 
-## What You Can Say in Your Review
+## Review
 
 > I developed an Advanced Threat Intelligence Platform that automates the entire threat intelligence lifecycle. The system ingests malicious IOC data from three public OSINT feeds (VirusTotal, AlienVault, AbuseIPDB), normalizes and deduplicates indicators, assigns dynamic risk scores, persists data in MongoDB with proper schema management, automatically enforces firewall blocking for high-risk IPs via Linux iptables, and generates centralized SIEM-ready audit logs for SOC compliance and monitoring.
 > 
@@ -375,7 +375,6 @@ options:
 
 ---
 
-**Review Date:** May 27, 2026  
 **Developer:** Sanket Pawar  
 **Project:** Advanced Threat Intelligence Platform & Dynamic Policy Enforcer  
 **Status:** Production-Ready ✅

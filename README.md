@@ -394,10 +394,9 @@ python3 main.py --mode live --indicators 8.8.8.8
 
 **Developer:** Sanket Pawar  
 **Project Status:** Production-Ready ✅  
-**Last Updated:** May 27, 2026
+
 
 ## 🔗 Quick Links
 
 - GitHub Repository: https://github.com/tryhackmeacct-netizen/Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer
-- Internship Review Guide: [INTERNSHIP_REVIEW.md](INTERNSHIP_REVIEW.md)
 - Project Documentation: [docs/](docs/)

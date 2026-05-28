@@ -48,3 +48,23 @@
 2026-05-27 07:09:29,672 | INFO | tip_ingestion | Stored IOC 198.51.100.99 from DemoFeed
 2026-05-27 07:09:29,683 | INFO | tip_ingestion | Stored IOC 192.0.2.99 from DemoFeed
 2026-05-27 07:09:29,692 | INFO | tip_ingestion | [SUCCESS] Processed 3 IOCs
+2026-05-27 07:38:41,402 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-27 07:38:41,402 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-05-27 07:38:41,458 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-27 07:38:41,458 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-27 07:38:41,459 | INFO | tip_ingestion | Duplicate IOC skipped: 192.0.2.20
+2026-05-27 07:38:41,459 | WARNING | tip_ingestion | No new indicators were processed
+2026-05-27 07:38:41,459 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-05-27 07:43:49,923 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-27 07:43:49,923 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-05-27 07:43:49,937 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-27 07:43:49,939 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-27 07:43:49,941 | INFO | tip_ingestion | Duplicate IOC skipped: 192.0.2.20
+2026-05-27 07:43:49,942 | WARNING | tip_ingestion | No new indicators were processed
+2026-05-27 07:43:49,942 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-05-27 07:50:31,157 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-27 07:50:31,157 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-05-27 07:50:31,293 | INFO | tip_ingestion | Stored IOC 5.5.5.5 from DemoFeed
+2026-05-27 07:50:31,421 | INFO | tip_ingestion | Stored IOC 6.6.6.6 from DemoFeed
+2026-05-27 07:50:31,463 | INFO | tip_ingestion | Stored IOC 7.7.7.7 from DemoFeed
+2026-05-27 07:50:31,506 | INFO | tip_ingestion | [SUCCESS] Processed 3 IOCs
