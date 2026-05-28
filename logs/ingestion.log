@@ -68,3 +68,7 @@
 2026-05-27 07:50:31,421 | INFO | tip_ingestion | Stored IOC 6.6.6.6 from DemoFeed
 2026-05-27 07:50:31,463 | INFO | tip_ingestion | Stored IOC 7.7.7.7 from DemoFeed
 2026-05-27 07:50:31,506 | INFO | tip_ingestion | [SUCCESS] Processed 3 IOCs
+2026-05-28 05:29:57,835 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=1]
+2026-05-28 05:29:57,836 | INFO | tip_ingestion | Running in DEMO mode with 1 indicators
+2026-05-28 05:29:58,067 | INFO | tip_ingestion | Stored IOC 192.168.168.2 from DemoFeed
+2026-05-28 05:29:58,282 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
