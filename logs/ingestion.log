@@ -78,3 +78,69 @@
 2026-05-28 06:08:25,014 | INFO | tip_ingestion | Stored IOC 1.2.2.2 from DemoFeed
 2026-05-28 06:08:25,089 | INFO | tip_ingestion | Stored IOC 3.3.3.3 from DemoFeed
 2026-05-28 06:08:25,135 | INFO | tip_ingestion | [SUCCESS] Processed 3 IOCs
+2026-05-29 19:21:26,486 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-29 19:21:26,486 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-05-29 19:21:33,135 | WARNING | tip_ingestion | Pipeline interrupted by user
+2026-05-29 19:22:44,293 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-29 19:22:44,293 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-05-29 19:22:44,333 | INFO | tip_ingestion | Stored IOC 203.0.113.10 from DemoFeed
+2026-05-29 19:22:44,386 | INFO | tip_ingestion | Stored IOC 198.51.100.20 from DemoFeed
+2026-05-29 19:22:44,406 | INFO | tip_ingestion | Stored IOC 192.0.2.20 from DemoFeed
+2026-05-29 19:22:44,429 | INFO | tip_ingestion | [SUCCESS] Processed 3 IOCs
+2026-05-29 19:23:16,168 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-29 19:23:16,168 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-05-29 19:23:16,194 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-29 19:23:16,195 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-29 19:23:16,195 | INFO | tip_ingestion | Duplicate IOC skipped: 192.0.2.20
+2026-05-29 19:23:16,195 | WARNING | tip_ingestion | No new indicators were processed
+2026-05-29 19:23:16,195 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-05-29 19:26:45,054 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-29 19:26:45,055 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-05-29 19:26:45,100 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-29 19:26:45,101 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-29 19:26:45,102 | INFO | tip_ingestion | Duplicate IOC skipped: 192.0.2.20
+2026-05-29 19:26:45,102 | WARNING | tip_ingestion | No new indicators were processed
+2026-05-29 19:26:45,102 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-05-29 20:14:21,425 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=2]
+2026-05-29 20:14:21,425 | INFO | tip_ingestion | Running in DEMO mode with 2 indicators
+2026-05-29 20:14:21,466 | INFO | tip_ingestion | Stored IOC 2.2.2.2 from DemoFeed
+2026-05-29 20:14:21,523 | INFO | tip_ingestion | Stored IOC 0.0.0.0 from DemoFeed
+2026-05-29 20:14:21,545 | INFO | tip_ingestion | [SUCCESS] Processed 2 IOCs
+2026-05-29 20:34:48,936 | WARNING | tip_ingestion | Elasticsearch server unreachable
+2026-05-29 20:35:07,476 | WARNING | tip_ingestion | Elasticsearch server unreachable
+2026-05-29 20:40:31,208 | WARNING | tip_ingestion | Elasticsearch server unreachable
+2026-05-29 20:40:31,219 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-29 20:40:31,220 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-05-29 20:40:31,256 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-29 20:40:31,257 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-29 20:40:31,259 | INFO | tip_ingestion | Stored IOC 87.87.87.87 from DemoFeed
+2026-05-29 20:40:31,259 | WARNING | tip_ingestion | Skipping SIEM forwarding
+2026-05-29 20:40:31,260 | WARNING | tip_ingestion | Failed to forward IOC 87.87.87.87 to Elasticsearch SIEM
+2026-05-29 20:40:31,351 | ERROR | tip_ingestion | Firewall blocking failed: Command '['sudo', 'iptables', '-A', 'INPUT', '-s', '87.87.87.87', '-j', 'DROP']' returned non-zero exit status 9009.
+2026-05-29 20:40:31,352 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-05-29 20:41:17,828 | WARNING | tip_ingestion | Elasticsearch server unreachable
+2026-05-29 20:41:17,833 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=2]
+2026-05-29 20:41:17,833 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-05-29 20:41:17,833 | ERROR | tip_ingestion | Feed VirusTotal failed: VIRUSTOTAL_API_KEY is not configured
+2026-05-29 20:41:17,833 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-05-29 20:41:17,833 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-05-29 20:41:17,833 | WARNING | tip_ingestion | No live indicators were returned by any feed
+2026-05-29 20:41:17,834 | WARNING | tip_ingestion | No new indicators were processed
+2026-05-29 20:41:17,834 | INFO | tip_ingestion | Falling back to DEMO mode
+2026-05-29 20:41:17,877 | INFO | tip_ingestion | Stored IOC 8.8.8.8 from DemoFeed
+2026-05-29 20:41:17,878 | WARNING | tip_ingestion | Skipping SIEM forwarding
+2026-05-29 20:41:17,878 | WARNING | tip_ingestion | Failed to forward IOC 8.8.8.8 to Elasticsearch SIEM
+2026-05-29 20:41:17,962 | ERROR | tip_ingestion | Firewall blocking failed: Command '['sudo', 'iptables', '-A', 'INPUT', '-s', '8.8.8.8', '-j', 'DROP']' returned non-zero exit status 9009.
+2026-05-29 20:41:17,965 | INFO | tip_ingestion | Stored IOC 1.1.1.1 from DemoFeed
+2026-05-29 20:41:17,965 | WARNING | tip_ingestion | Skipping SIEM forwarding
+2026-05-29 20:41:17,966 | WARNING | tip_ingestion | Failed to forward IOC 1.1.1.1 to Elasticsearch SIEM
+2026-05-29 20:41:18,021 | ERROR | tip_ingestion | Firewall blocking failed: Command '['sudo', 'iptables', '-A', 'INPUT', '-s', '1.1.1.1', '-j', 'DROP']' returned non-zero exit status 9009.
+2026-05-29 20:41:18,022 | INFO | tip_ingestion | [SUCCESS] Processed 2 IOCs
+2026-05-29 20:43:18,773 | WARNING | tip_ingestion | Elasticsearch server unreachable
+2026-05-29 20:43:18,853 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-05-29 20:43:18,853 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-05-29 20:43:18,900 | INFO | tip_ingestion | Duplicate IOC skipped: 203.0.113.10
+2026-05-29 20:43:18,900 | INFO | tip_ingestion | Duplicate IOC skipped: 198.51.100.20
+2026-05-29 20:43:18,901 | INFO | tip_ingestion | Duplicate IOC skipped: 87.87.87.87
+2026-05-29 20:43:18,901 | WARNING | tip_ingestion | No new indicators were processed
+2026-05-29 20:43:18,902 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs

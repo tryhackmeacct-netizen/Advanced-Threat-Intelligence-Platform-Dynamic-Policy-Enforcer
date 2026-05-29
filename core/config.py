@@ -24,3 +24,8 @@ DEFAULT_FEED_INDICATORS = [
 ]
 
 ENABLE_DEMO_FALLBACK = os.getenv("ENABLE_DEMO_FALLBACK", "1") == "1"
+BLOCK_THRESHOLD = int(os.getenv("BLOCK_THRESHOLD", "80"))
+ELASTICSEARCH_URL = os.getenv("ELASTICSEARCH_URL", "http://localhost:9200")
+ES_INDEX_NAME = os.getenv("ES_INDEX_NAME", "threat_intelligence")
+BLOCKED_IPS_COLLECTION = os.getenv("BLOCKED_IPS_COLLECTION", "blocked_ips")
+SIEM_ENABLED = os.getenv("SIEM_ENABLED", "1") == "1"

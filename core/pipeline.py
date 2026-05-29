@@ -1,10 +1,13 @@
 from core.cleaner import clean_indicator, infer_indicator_type
-from core.database import get_collection, migrate_legacy_documents
+from core.config import BLOCK_THRESHOLD
+from core.database import get_collection, insert_ioc, migrate_legacy_documents
 from core.deduplicator import is_duplicate
 from core.logger import get_logger
 from core.normalizer import normalize_record
 from core.risk_scoring import calculate_risk
 from core.security_logger import log_security_event
+from core.siem_forwarder import forward_to_siem
+from core.validator import validate_ip
 from feeds.abuseipdb import fetch_indicators as fetch_abuseipdb
 from feeds.alienvault import fetch_indicators as fetch_alienvault
 from feeds.virustotal import fetch_indicators as fetch_virustotal
@@ -37,13 +40,20 @@ def process_records(records):
         normalized = normalize_record(record)
         indicator = normalized["indicator"]
 
+        if normalized["type"] == "ip" and not validate_ip(indicator):
+            logger.warning("Invalid IP skipped: %s", indicator)
+            continue
+
         if is_duplicate(collection, indicator):
             logger.info("Duplicate IOC skipped: %s", indicator)
             continue
 
         normalized["risk_score"] = calculate_risk(normalized["source"])
 
-        collection.insert_one(normalized)
+        if not insert_ioc(collection, normalized):
+            logger.info("Duplicate IOC skipped by database insert: %s", indicator)
+            continue
+
         inserted.append(normalized)
 
         logger.info("Stored IOC %s from %s", indicator, normalized["source"])
@@ -55,7 +65,12 @@ def process_records(records):
             "DETECTED",
         )
 
-        if normalized["risk_score"] >= 80:
+        if forward_to_siem(normalized):
+            logger.info("Forwarded IOC %s to Elasticsearch SIEM", indicator)
+        else:
+            logger.warning("Failed to forward IOC %s to Elasticsearch SIEM", indicator)
+
+        if normalized["risk_score"] >= BLOCK_THRESHOLD:
             blocked = block_ip(indicator)
             if blocked:
                 log_security_event(

@@ -175,6 +175,16 @@ Default → 60 (Unknown Source)
 
 ## 🔧 Advanced Commands
 
+### Start the Policy Enforcement Daemon
+```bash
+python3 scripts/policy_cli.py start-daemon --interval 15
+```
+
+### Rollback a Blocked IP
+```bash
+python3 scripts/policy_cli.py rollback 203.0.113.99 --reason false_positive
+```
+
 ### Check MongoDB Database
 ```bash
 # Count total IOCs

@@ -43,3 +43,11 @@ def get_collection():
     client = MongoClient(MONGO_URI)
     db = client[DB_NAME]
     return db[COLLECTION_NAME]
+
+
+def insert_ioc(collection, ioc):
+    existing = collection.find_one({"indicator": ioc["indicator"]})
+    if existing:
+        return False
+    collection.insert_one(ioc)
+    return True

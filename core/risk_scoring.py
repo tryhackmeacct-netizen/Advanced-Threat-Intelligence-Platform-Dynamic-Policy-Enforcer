@@ -1,17 +1,11 @@
+SOURCE_RISK_MAP = {
+    "VirusTotal": 90,
+    "AlienVault": 85,
+    "AbuseIPDB": 80,
+    "URLHaus": 88,
+    "DemoFeed": 95,
+}
+
+
 def calculate_risk(source):
-    if source == "VirusTotal":
-        return 90
-
-    if source == "AlienVault":
-        return 85
-
-    if source == "AbuseIPDB":
-        return 80
-
-    if source == "URLHaus":
-        return 88
-
-    if source == "DemoFeed":
-        return 95
-
-    return 60
+    return SOURCE_RISK_MAP.get(source, 60)
