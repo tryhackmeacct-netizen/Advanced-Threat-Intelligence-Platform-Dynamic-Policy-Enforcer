@@ -180,6 +180,161 @@ $ tail -5 logs/security_events.log
 2026-05-27 11:09:29 | EVENT=MALICIOUS_IP_DETECTED | IP=203.0.113.99 | SOURCE=DemoFeed | RISK=95 | ACTION=DETECTED
 2026-05-27 11:09:29 | EVENT=FIREWALL_BLOCK | IP=203.0.113.99 | SOURCE=DemoFeed | RISK=95 | ACTION=BLOCKED
 ```
+## Day 7: SIEM Integration & Elasticsearch Forwarding
+
+**Status:** ✅ Complete (Architecture + Integration Layer)
+
+### What was built:
+
+* Elasticsearch SIEM forwarding module
+* SIEM-compatible JSON event formatting
+* IOC forwarding pipeline for centralized monitoring
+* Elasticsearch connectivity validation
+* Security event transformation engine
+* Structured logging architecture for ELK Stack integration
+
+### SIEM Workflow:
+
+```
+Threat IOC → Risk Scoring → MongoDB → Elasticsearch Forwarding → SIEM Dashboard
+```
+
+### Features Implemented:
+
+* IOC forwarding to Elasticsearch
+* JSON-based security event formatting
+* Elasticsearch availability checking
+* Fail-safe handling when SIEM server is offline
+* Logging fallback mechanism
+* Modular SIEM integration architecture
+
+### Proof:
+
+```bash
+$ python3 main.py --mode demo --indicators 87.87.87.87
+
+2026-05-29 20:40:31,208 | WARNING | tip_ingestion | Elasticsearch server unreachable
+2026-05-29 20:40:31,259 | WARNING | tip_ingestion | Skipping SIEM forwarding
+2026-05-29 20:40:31,260 | WARNING | tip_ingestion | Failed to forward IOC 87.87.87.87 to Elasticsearch SIEM
+```
+
+### Files Added:
+
+* `core/siem_forwarder.py`
+* Elasticsearch integration logic
+* SIEM event formatting modules
+
+### Security Benefit:
+
+This module prepares the platform for enterprise SOC environments where security teams require centralized monitoring, searchable threat intelligence, and visual dashboards using ELK Stack or SIEM platforms.
+
+---
+
+## Day 8: Dynamic Enforcement Daemon & Rollback System
+
+**Status:** ✅ Complete
+
+### What was built:
+
+* Automated enforcement daemon
+* Continuous monitoring engine
+* Firewall rollback mechanism
+* CLI-based policy management
+* Real-time IOC enforcement workflow
+* Automated response architecture
+
+### Enforcement Workflow:
+
+```
+MongoDB IOC → Risk Evaluation → Enforcement Daemon → iptables Rule Creation
+```
+
+### Features Implemented:
+
+* Continuous monitoring of high-risk indicators
+* Dynamic firewall rule creation
+* Rollback support for false positives
+* Automated response handling
+* Policy management CLI utilities
+* Modular enforcement architecture
+
+### Files Added:
+
+* `policy_enforcer/enforcer_daemon.py`
+* `policy_enforcer/rollback.py`
+* `scripts/policy_cli.py`
+
+### Example Enforcement Rule:
+
+```bash
+sudo iptables -A INPUT -s 87.87.87.87 -j DROP
+```
+
+### Rollback Example:
+
+```bash
+sudo iptables -D INPUT -s 87.87.87.87 -j DROP
+```
+
+### Security Benefit:
+
+The Dynamic Policy Enforcer reduces manual SOC workload by automatically translating threat intelligence into active defensive firewall policies.
+
+---
+
+## Day 9: Project Refactoring, Validation & Production Hardening
+
+**Status:** ✅ Complete
+
+### What was built:
+
+* IOC validation engine
+* Codebase refactoring
+* Modular architecture improvements
+* Improved error handling
+* Improved logging consistency
+* Duplicate IOC handling enhancements
+* Production-ready project structure
+
+### Validation Features:
+
+* IP format validation
+* IOC type detection
+* Invalid indicator filtering
+* Data normalization consistency
+* Safer database insertion logic
+
+### New Modules Added:
+
+* `core/validator.py`
+* Improved `core/pipeline.py`
+* Enhanced `core/database.py`
+* Updated `core/config.py`
+
+### Improvements:
+
+* Cleaner module separation
+* Improved maintainability
+* Better scalability for future integrations
+* Enhanced exception handling
+* Safer MongoDB interactions
+* Better SIEM compatibility
+
+### Proof:
+
+```bash
+$ python3 main.py --mode demo --indicators 203.0.113.10 198.51.100.20 87.87.87.87
+
+Duplicate IOC skipped: 203.0.113.10
+Duplicate IOC skipped: 198.51.100.20
+Stored IOC 87.87.87.87 from DemoFeed
+[SUCCESS] Processed 1 IOCs
+```
+
+### Security Benefit:
+
+The platform now behaves more like a production-ready cybersecurity automation system with improved reliability, validation, modularity, and operational safety.
+
 
 ## Review Commands
 
@@ -377,4 +532,4 @@ options:
 
 **Developer:** Sanket Pawar  
 **Project:** Advanced Threat Intelligence Platform & Dynamic Policy Enforcer  
-**Status:** Production-Ready ✅
+

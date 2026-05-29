@@ -275,19 +275,6 @@ DROP       all  --  203.0.113.99        0.0.0.0/0
 2026-05-27 11:09:29 | EVENT=FIREWALL_BLOCK | IP=203.0.113.99 | SOURCE=DemoFeed | RISK=95 | ACTION=BLOCKED
 ```
 
-## 📚 Documentation
-
-For a comprehensive internship review guide with all commands, day-by-day breakdown, and testing checklist, see **[INTERNSHIP_REVIEW.md](INTERNSHIP_REVIEW.md)**
-
-Key sections in the review guide:
-- ✅ Day-by-day implementation details
-- ✅ All review and demo commands with expected outputs
-- ✅ Architecture diagram and data flow
-- ✅ Technologies stack and key features
-- ✅ Testing checklist for interviews
-- ✅ What to say in your internship review
-- ✅ Next enhancement steps
-
 ## 🏗️ Architecture & Design
 
 ### Pipeline Stages
