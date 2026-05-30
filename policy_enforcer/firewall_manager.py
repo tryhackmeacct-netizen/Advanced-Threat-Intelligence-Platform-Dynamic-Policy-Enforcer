@@ -1,10 +1,12 @@
 import platform
+import ipaddress
 import subprocess
 from datetime import datetime, timezone
+from pathlib import Path
 
 from pymongo import MongoClient
 
-from core.config import BLOCKED_IPS_COLLECTION, DB_NAME, MONGO_URI
+from core.config import BLOCKED_IPS_COLLECTION, DB_NAME, FIREWALL_ENABLED, MONGO_URI
 from core.logger import get_logger
 
 logger = get_logger()
@@ -34,6 +36,50 @@ def record_blocked_ip(ip, source, risk_score):
         },
         upsert=True,
     )
+
+
+def load_whitelist():
+    whitelist_file = Path(__file__).resolve().parents[1] / "config" / "whitelist.txt"
+    entries = []
+
+    if not whitelist_file.exists():
+        return entries
+
+    with whitelist_file.open() as f:
+        for line in f:
+            value = line.strip()
+            if not value or value.startswith("#"):
+                continue
+
+            try:
+                if "/" in value:
+                    entries.append(ipaddress.ip_network(value, strict=False))
+                else:
+                    entries.append(ipaddress.ip_address(value))
+            except ValueError:
+                entries.append(value.lower())
+
+    return entries
+
+
+def is_whitelisted(ip):
+    try:
+        address = ipaddress.ip_address(ip)
+    except ValueError:
+        address = None
+
+    for item in load_whitelist():
+        if isinstance(item, (ipaddress.IPv4Network, ipaddress.IPv6Network)):
+            if address and address in item:
+                return True
+        elif isinstance(item, (ipaddress.IPv4Address, ipaddress.IPv6Address)):
+            if address == item:
+                return True
+        elif isinstance(item, str):
+            if ip.lower() == item:
+                return True
+
+    return False
 
 
 def _run_command(command):
@@ -78,7 +124,6 @@ def _windows_block_ip(ip):
         logger.error("Windows firewall blocking failed: %s", result.stderr.strip() or result.stdout.strip())
         return False
     logger.info("Blocked malicious IP using Windows firewall: %s", ip)
-    print(f"[+] Blocked malicious IP: {ip}")
     return True
 
 
@@ -129,7 +174,6 @@ def _linux_block_ip(ip):
         logger.error("Linux firewall blocking failed: %s", result.stderr.strip() or result.stdout.strip())
         return False
     logger.info("Blocked malicious IP using iptables: %s", ip)
-    print(f"[+] Blocked malicious IP: {ip}")
     return True
 
 
@@ -152,6 +196,14 @@ def _linux_unblock_ip(ip):
 
 
 def block_ip(ip):
+    if not FIREWALL_ENABLED:
+        logger.info("Firewall is disabled, skipping block for %s", ip)
+        return False
+
+    if is_whitelisted(ip):
+        logger.info("Skipping whitelisted IP: %s", ip)
+        return False
+
     try:
         if IS_WINDOWS:
             if _windows_rule_exists(ip):

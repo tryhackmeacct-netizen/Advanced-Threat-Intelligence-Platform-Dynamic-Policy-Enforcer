@@ -1,9 +1,14 @@
 from datetime import datetime, timezone
 
 from pymongo import MongoClient
+from pymongo.errors import DuplicateKeyError
 
 from core.cleaner import clean_indicator, infer_indicator_type
 from core.config import COLLECTION_NAME, DB_NAME, MONGO_URI
+from core.logger import get_logger
+
+logger = get_logger(__name__)
+_indexes_initialized = False
 
 
 def normalize_legacy_document(doc):
@@ -39,10 +44,30 @@ def migrate_legacy_documents(collection):
     return migrated
 
 
+def create_indexes(collection):
+    try:
+        collection.create_index([("indicator", 1)], unique=True)
+        collection.create_index([("risk_score", -1)])
+        collection.create_index([("source", 1)])
+        logger.info("MongoDB indexes ensured for collection '%s'", collection.name)
+    except DuplicateKeyError as error:
+        logger.warning("Unable to create unique index on indicator due to existing duplicates: %s", error)
+    except Exception as error:
+        logger.error("Failed to create MongoDB indexes: %s", error, exc_info=True)
+
+
 def get_collection():
+    global _indexes_initialized
+
     client = MongoClient(MONGO_URI)
     db = client[DB_NAME]
-    return db[COLLECTION_NAME]
+    collection = db[COLLECTION_NAME]
+
+    if not _indexes_initialized:
+        create_indexes(collection)
+        _indexes_initialized = True
+
+    return collection
 
 
 def insert_ioc(collection, ioc):
@@ -51,3 +76,11 @@ def insert_ioc(collection, ioc):
         return False
     collection.insert_one(ioc)
     return True
+
+
+def get_feed_stats(collection):
+    return {
+        "total_iocs": collection.count_documents({}),
+        "high_risk": collection.count_documents({"risk_score": {"$gte": 80}}),
+        "sources": collection.distinct("source"),
+    }

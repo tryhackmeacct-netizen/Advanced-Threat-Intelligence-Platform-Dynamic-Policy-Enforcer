@@ -31,9 +31,11 @@ A production-ready threat intelligence automation platform that ingests maliciou
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-## Day-by-Day Implementation
+## Week-by-Week Implementation
 
-### Day 1: Project Initialization & Environment Setup
+### Week 1: Core Ingestion, Storage, and Enforcement
+
+#### Day 1: Project Initialization & Environment Setup
 **Status:** ✅ Complete
 
 What was built:
@@ -50,7 +52,7 @@ $ python3 main.py --mode demo --indicators 203.0.113.99
 ✓ 203.0.113.99 (ip) - Risk: 95 - Source: DemoFeed
 ```
 
-### Day 2: OSINT Threat Intelligence Ingestion
+#### Day 2: OSINT Threat Intelligence Ingestion
 **Status:** ✅ Complete
 
 What was built:
@@ -73,7 +75,7 @@ $ python3 main.py --mode live
 2026-05-27 07:09:20,505 | INFO | tip_ingestion | Feed AbuseIPDB successful
 ```
 
-### Day 3: IOC Normalization & Risk Scoring
+#### Day 3: IOC Normalization & Risk Scoring
 **Status:** ✅ Complete
 
 What was built:
@@ -100,7 +102,7 @@ $ python3 main.py --mode demo --indicators 203.0.113.99 198.51.100.99
 ✓ 198.51.100.99 (ip) - Risk: 95 - Source: DemoFeed
 ```
 
-### Day 4: MongoDB Threat Database Integration
+#### Day 4: MongoDB Threat Database Integration
 **Status:** ✅ Complete
 
 What was built:
@@ -130,7 +132,7 @@ $ python3 -c "from pymongo import MongoClient; ...collection.count_documents({})
 Total documents: 12
 ```
 
-### Day 5: Dynamic Firewall Policy Enforcer
+#### Day 5: Dynamic Firewall Policy Enforcer
 **Status:** ✅ Complete
 
 What was built:
@@ -157,7 +159,9 @@ DROP       all  --  198.51.100.99 0.0.0.0/0
 DROP       all  --  192.0.2.99    0.0.0.0/0
 ```
 
-### Day 6: Centralized Security Logging & SIEM Preparation
+### Week 2: SIEM, Enforcement Daemon, and Production Hardening
+
+#### Day 6: Centralized Security Logging & SIEM Preparation
 **Status:** ✅ Complete
 
 What was built:
@@ -180,7 +184,7 @@ $ tail -5 logs/security_events.log
 2026-05-27 11:09:29 | EVENT=MALICIOUS_IP_DETECTED | IP=203.0.113.99 | SOURCE=DemoFeed | RISK=95 | ACTION=DETECTED
 2026-05-27 11:09:29 | EVENT=FIREWALL_BLOCK | IP=203.0.113.99 | SOURCE=DemoFeed | RISK=95 | ACTION=BLOCKED
 ```
-## Day 7: SIEM Integration & Elasticsearch Forwarding
+#### Day 7: SIEM Integration & Elasticsearch Forwarding
 
 **Status:** ✅ Complete (Architecture + Integration Layer)
 
@@ -230,7 +234,7 @@ This module prepares the platform for enterprise SOC environments where security
 
 ---
 
-## Day 8: Dynamic Enforcement Daemon & Rollback System
+#### Day 8: Dynamic Enforcement Daemon & Rollback System
 
 **Status:** ✅ Complete
 
@@ -282,7 +286,7 @@ The Dynamic Policy Enforcer reduces manual SOC workload by automatically transla
 
 ---
 
-## Day 9: Project Refactoring, Validation & Production Hardening
+#### Day 9: Project Refactoring, Validation & Production Hardening
 
 **Status:** ✅ Complete
 
@@ -334,6 +338,36 @@ Stored IOC 87.87.87.87 from DemoFeed
 ### Security Benefit:
 
 The platform now behaves more like a production-ready cybersecurity automation system with improved reliability, validation, modularity, and operational safety.
+
+### Day 10: Security Hardening, Indexing, and Whitelist Protection
+**Status:** ✅ Complete
+
+### What was built:
+
+* MongoDB indexes for IOC lookups and retrieval performance
+* Preserved feed-level risk scores while calculating a final score
+* Firewall whitelist protection for local and internal networks
+* Centralized project settings in `config/settings.py`
+* Unit tests for validator, cleaner, risk scoring, and firewall management
+* Better logger-based firewall and error messages
+
+### Implementation Details:
+
+* Added `create_indexes()` in `core/database.py` and initialized indexes on startup
+* Updated `core/risk_scoring.py` with `calculate_final_score()` to preserve existing scores and apply source-specific boosts
+* Added `config/whitelist.txt` and enhanced `policy_enforcer/firewall_manager.py` to skip whitelisted IPs and hosts
+* Added `config/settings.py` for centralized environment defaults
+* Added `tests/test_validator.py`, `tests/test_cleaner.py`, `tests/test_risk_scoring.py`, `tests/test_firewall_manager.py`
+* Updated `README.md` to reference `REVIEW.md` for the review guide
+
+### Proof:
+
+* `python -m unittest discover tests` passes
+* `python -m py_compile core/*.py policy_enforcer/*.py config/*.py` passes
+
+### Security Benefit:
+
+Day 10 improves operational safety and performance by adding database indexing, preventing false blocking of trusted hosts, preserving score provenance, and adding test coverage.
 
 
 ## Review Commands

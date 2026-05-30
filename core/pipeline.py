@@ -4,7 +4,7 @@ from core.database import get_collection, insert_ioc, migrate_legacy_documents
 from core.deduplicator import is_duplicate
 from core.logger import get_logger
 from core.normalizer import normalize_record
-from core.risk_scoring import calculate_risk
+from core.risk_scoring import calculate_final_score
 from core.security_logger import log_security_event
 from core.siem_forwarder import forward_to_siem
 from core.validator import validate_ip
@@ -48,7 +48,7 @@ def process_records(records):
             logger.info("Duplicate IOC skipped: %s", indicator)
             continue
 
-        normalized["risk_score"] = calculate_risk(normalized["source"])
+        normalized["risk_score"] = calculate_final_score(normalized)
 
         if not insert_ioc(collection, normalized):
             logger.info("Duplicate IOC skipped by database insert: %s", indicator)

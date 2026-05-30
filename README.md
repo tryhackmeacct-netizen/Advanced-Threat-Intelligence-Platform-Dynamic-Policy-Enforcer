@@ -175,16 +175,6 @@ Default → 60 (Unknown Source)
 
 ## 🔧 Advanced Commands
 
-### Start the Policy Enforcement Daemon
-```bash
-python3 scripts/policy_cli.py start-daemon --interval 15
-```
-
-### Rollback a Blocked IP
-```bash
-python3 scripts/policy_cli.py rollback 203.0.113.99 --reason false_positive
-```
-
 ### Check MongoDB Database
 ```bash
 # Count total IOCs
@@ -274,6 +264,19 @@ DROP       all  --  203.0.113.99        0.0.0.0/0
 2026-05-27 11:09:29 | EVENT=MALICIOUS_IP_DETECTED | IP=203.0.113.99 | SOURCE=DemoFeed | RISK=95 | ACTION=DETECTED
 2026-05-27 11:09:29 | EVENT=FIREWALL_BLOCK | IP=203.0.113.99 | SOURCE=DemoFeed | RISK=95 | ACTION=BLOCKED
 ```
+
+## 📚 Documentation
+
+For a comprehensive internship review guide with all commands, week-by-week breakdown, and testing checklist, see **[REVIEW.md](REVIEW.md)**
+
+Key sections in the review guide:
+- ✅ Week-by-week implementation details
+- ✅ All review and demo commands with expected outputs
+- ✅ Architecture diagram and data flow
+- ✅ Technologies stack and key features
+- ✅ Testing checklist for interviews
+- ✅ What to say in your internship review
+- ✅ Next enhancement steps
 
 ## 🏗️ Architecture & Design
 
@@ -390,7 +393,6 @@ python3 main.py --mode live --indicators 8.8.8.8
 ## 📄 Author & License
 
 **Developer:** Sanket Pawar  
-**Project Status:** Production-Ready ✅  
 
 
 ## 🔗 Quick Links
