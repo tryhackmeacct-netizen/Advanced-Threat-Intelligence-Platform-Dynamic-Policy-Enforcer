@@ -65,10 +65,13 @@ def process_records(records):
             "DETECTED",
         )
 
-        if forward_to_siem(normalized):
+        siem_status = forward_to_siem(normalized)
+        if siem_status == "SUCCESS":
             logger.info("Forwarded IOC %s to Elasticsearch SIEM", indicator)
-        else:
-            logger.warning("Failed to forward IOC %s to Elasticsearch SIEM", indicator)
+        elif siem_status == "QUEUED":
+            logger.warning("IOC %s queued for SIEM (Elasticsearch unavailable)", indicator)
+        else:  # SKIPPED
+            logger.debug("SIEM forwarding skipped for IOC %s", indicator)
 
         if normalized["risk_score"] >= BLOCK_THRESHOLD:
             blocked = block_ip(indicator)

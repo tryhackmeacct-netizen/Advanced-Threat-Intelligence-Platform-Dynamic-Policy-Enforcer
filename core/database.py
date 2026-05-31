@@ -71,11 +71,67 @@ def get_collection():
 
 
 def insert_ioc(collection, ioc):
+    """Insert IOC with duplicate detection and graceful handling."""
     existing = collection.find_one({"indicator": ioc["indicator"]})
     if existing:
+        logger.debug("IOC already exists, skipping: %s", ioc["indicator"])
         return False
-    collection.insert_one(ioc)
-    return True
+    try:
+        collection.insert_one(ioc)
+        return True
+    except DuplicateKeyError:
+        logger.warning("Duplicate key error for indicator: %s (race condition)", ioc["indicator"])
+        return False
+
+
+def remove_duplicate_iocs(collection):
+    """
+    Remove duplicate IOC records from MongoDB.
+    Returns tuple: (duplicates_found, duplicates_removed)
+    """
+    pipeline = [
+        {
+            "$group": {
+                "_id": "$indicator",
+                "ids": {"$push": "$_id"},
+                "count": {"$sum": 1}
+            }
+        },
+        {
+            "$match": {
+                "count": {"$gt": 1}
+            }
+        }
+    ]
+    
+    duplicates_found = 0
+    duplicates_removed = 0
+    
+    try:
+        for group in collection.aggregate(pipeline):
+            duplicates_found += 1
+            indicator = group["_id"]
+            ids_to_keep = group["ids"][0]
+            ids_to_delete = group["ids"][1:]
+            
+            deleted = collection.delete_many({"_id": {"$in": ids_to_delete}})
+            duplicates_removed += deleted.deleted_count
+            
+            logger.info(
+                "Removed %d duplicate records for indicator: %s",
+                deleted.deleted_count,
+                indicator
+            )
+        
+        logger.info(
+            "Duplicate cleanup complete: %d duplicates found, %d records removed",
+            duplicates_found,
+            duplicates_removed
+        )
+        return duplicates_found, duplicates_removed
+    except Exception as error:
+        logger.error("Failed to remove duplicates: %s", error, exc_info=True)
+        return 0, 0
 
 
 def get_feed_stats(collection):

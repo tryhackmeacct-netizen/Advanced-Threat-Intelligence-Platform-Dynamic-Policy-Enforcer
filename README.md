@@ -39,7 +39,8 @@ Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer/
 ├── main.py                          # Production entry point with CLI
 ├── requirements.txt                 # Python dependencies
 ├── README.md                        # This file
-├── INTERNSHIP_REVIEW.md             # Comprehensive review guide (350+ lines)
+├── REVIEW.md             # Comprehensive review guide (350+ lines)
+├── DAY11_IMPROVEMENTS.md            # Day 11 - Enhancements
 │
 ├── core/                            # Core threat processing modules
 │   ├── __init__.py
@@ -267,7 +268,7 @@ DROP       all  --  203.0.113.99        0.0.0.0/0
 
 ## 📚 Documentation
 
-For a comprehensive internship review guide with all commands, week-by-week breakdown, and testing checklist, see **[REVIEW.md](REVIEW.md)**
+For a comprehensive project review guide with all commands, week-by-week breakdown, and testing checklist, see **[REVIEW.md](REVIEW.md)**
 
 Key sections in the review guide:
 - ✅ Week-by-week implementation details
@@ -275,7 +276,7 @@ Key sections in the review guide:
 - ✅ Architecture diagram and data flow
 - ✅ Technologies stack and key features
 - ✅ Testing checklist for interviews
-- ✅ What to say in your internship review
+- ✅ Key points for your project presentation
 - ✅ Next enhancement steps
 
 ## 🏗️ Architecture & Design
