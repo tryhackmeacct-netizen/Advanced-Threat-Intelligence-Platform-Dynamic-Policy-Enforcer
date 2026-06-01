@@ -1,3 +1,5 @@
+import os
+
 from core.cleaner import clean_indicator, infer_indicator_type
 from core.config import BLOCK_THRESHOLD
 from core.database import get_collection, insert_ioc, migrate_legacy_documents
@@ -11,7 +13,7 @@ from core.validator import validate_ip
 from feeds.abuseipdb import fetch_indicators as fetch_abuseipdb
 from feeds.alienvault import fetch_indicators as fetch_alienvault
 from feeds.virustotal import fetch_indicators as fetch_virustotal
-from policy_enforcer.firewall_manager import block_ip
+from policy_enforcer.firewall_manager import block_ip, is_whitelisted
 
 logger = get_logger()
 
@@ -66,6 +68,8 @@ def process_records(records):
         )
 
         siem_status = forward_to_siem(normalized)
+        normalized["siem_status"] = siem_status
+
         if siem_status == "SUCCESS":
             logger.info("Forwarded IOC %s to Elasticsearch SIEM", indicator)
         elif siem_status == "QUEUED":
@@ -74,23 +78,26 @@ def process_records(records):
             logger.debug("SIEM forwarding skipped for IOC %s", indicator)
 
         if normalized["risk_score"] >= BLOCK_THRESHOLD:
-            blocked = block_ip(indicator)
-            if blocked:
-                log_security_event(
-                    "FIREWALL_BLOCK",
-                    indicator,
-                    normalized["source"],
-                    normalized["risk_score"],
-                    "BLOCKED",
+            if is_whitelisted(indicator):
+                normalized["firewall_status"] = "WHITELISTED"
+                logger.info("Skipping firewall block for whitelisted IP: %s", indicator)
+            elif os.geteuid() != 0:
+                normalized["firewall_status"] = "ROOT REQUIRED"
+                logger.warning(
+                    "Firewall enforcement pending root privileges for %s", indicator
                 )
             else:
+                blocked = block_ip(indicator)
+                normalized["firewall_status"] = "BLOCKED" if blocked else "BLOCK_FAILED"
                 log_security_event(
                     "FIREWALL_BLOCK",
                     indicator,
                     normalized["source"],
                     normalized["risk_score"],
-                    "BLOCK_FAILED",
+                    normalized["firewall_status"],
                 )
+        else:
+            normalized["firewall_status"] = "SKIPPED"
 
     return inserted
 

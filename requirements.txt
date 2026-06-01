@@ -1,4 +1,6 @@
 requests
 pymongo
 python-dotenv
-elasticsearch
+elasticsearch>=8.0.0,<9.0.0
+beautifulsoup4 # (Scraping threat feeds) 
+schedule #(Running automated jobs )

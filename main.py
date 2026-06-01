@@ -11,9 +11,6 @@ import sys
 from core.config import DEFAULT_FEED_INDICATORS, ENABLE_DEMO_FALLBACK
 from core.logger import get_logger
 from core.pipeline import run_demo, run_live
-from policy_enforcer.firewall_manager import is_whitelisted
-from core.siem_forwarder import forward_to_siem
-import os
 
 logger = get_logger()
 
@@ -43,24 +40,11 @@ def format_ioc_output(ioc):
     risk_score = ioc.get('risk_score', 0)
     ioc_type = ioc.get('type', 'unknown').upper()
     source = ioc.get('source', 'unknown')
-    
-    # Check storage status
+
     stored = "YES"
-    
-    # Check SIEM status
-    siem_display = "SENT"
-    
-    # Check firewall status
-    firewall_status = "SKIPPED"
-    if risk_score >= 80:
-        if is_whitelisted(indicator):
-            firewall_status = "WHITELISTED"
-        elif os.geteuid() != 0:
-            firewall_status = "ROOT REQUIRED"
-        else:
-            firewall_status = "BLOCKED"
-    
-    # Create detailed output
+    siem_display = ioc.get("siem_status", "UNKNOWN")
+    firewall_status = ioc.get("firewall_status", "SKIPPED")
+
     output = (
         f"\n✓ IOC: {indicator}\n"
         f"  Type: {ioc_type}\n"
@@ -70,7 +54,7 @@ def format_ioc_output(ioc):
         f"  SIEM: {siem_display}\n"
         f"  Firewall: {firewall_status}"
     )
-    
+
     return output
 
 

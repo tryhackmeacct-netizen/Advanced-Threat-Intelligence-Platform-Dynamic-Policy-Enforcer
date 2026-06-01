@@ -40,7 +40,7 @@ Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer/
 ├── requirements.txt                 # Python dependencies
 ├── README.md                        # This file
 ├── REVIEW.md             # Comprehensive review guide (350+ lines)
-├── DAY11_IMPROVEMENTS.md            # Day 11 - Enhancements
+├── DAY12_IMPROVEMENTS.md            # Day 13 - Enhancements
 │
 ├── core/                            # Core threat processing modules
 │   ├── __init__.py

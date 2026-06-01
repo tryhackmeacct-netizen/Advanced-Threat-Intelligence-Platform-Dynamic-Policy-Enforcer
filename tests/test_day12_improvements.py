@@ -1,5 +1,5 @@
 """
-Test suite for Day 11 improvements:
+Test suite for Day 12 improvements:
 1. Duplicate IOC handling
 2. Elasticsearch resilience with queueing
 3. Firewall permission checks
@@ -14,9 +14,8 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock
 
 from core.database import remove_duplicate_iocs, insert_ioc
-from core.siem_forwarder import forward_to_siem
 from policy_enforcer.firewall_manager import block_ip
-from queue.event_queue import save_failed_event, load_failed_events, clear_queued_events
+from threat_queue.event_queue import save_failed_event, load_failed_events, clear_queued_events
 
 
 class TestDuplicateIOCHandling(unittest.TestCase):
@@ -75,7 +74,7 @@ class TestElasticsearchResilience(unittest.TestCase):
         queue_file = Path(self.temp_dir) / "failed_events.json"
         
         # Patch the FAILED_EVENTS_FILE path
-        with patch('queue.event_queue.FAILED_EVENTS_FILE', queue_file):
+        with patch('threat_queue.event_queue.FAILED_EVENTS_FILE', queue_file):
             ioc = {
                 "indicator": "192.168.1.100",
                 "risk_score": 95,
@@ -103,7 +102,7 @@ class TestElasticsearchResilience(unittest.TestCase):
         ]
         queue_file.write_text(json.dumps(test_events))
         
-        with patch('queue.event_queue.FAILED_EVENTS_FILE', queue_file):
+        with patch('threat_queue.event_queue.FAILED_EVENTS_FILE', queue_file):
             events = load_failed_events()
             self.assertEqual(len(events), 2)
             self.assertEqual(events[0]["indicator"], "10.0.0.1")
@@ -113,7 +112,7 @@ class TestElasticsearchResilience(unittest.TestCase):
         queue_file = Path(self.temp_dir) / "failed_events.json"
         queue_file.write_text(json.dumps([{"indicator": "test"}]))
         
-        with patch('queue.event_queue.FAILED_EVENTS_FILE', queue_file):
+        with patch('threat_queue.event_queue.FAILED_EVENTS_FILE', queue_file):
             self.assertTrue(queue_file.exists())
             result = clear_queued_events()
             self.assertTrue(result)
@@ -163,13 +162,12 @@ class TestEnhancedOutput(unittest.TestCase):
             "indicator": "192.168.1.1",
             "risk_score": 95,
             "type": "ipv4",
-            "source": "VirusTotal"
+            "source": "VirusTotal",
+            "siem_status": "SUCCESS",
+            "firewall_status": "BLOCKED"
         }
         
-        with patch('policy_enforcer.firewall_manager.is_whitelisted', return_value=False):
-            with patch('core.siem_forwarder.forward_to_siem', return_value="SUCCESS"):
-                with patch('os.geteuid', return_value=0):
-                    output = format_ioc_output(mock_ioc)
+        output = format_ioc_output(mock_ioc)
         
         # Verify all required fields are in output
         self.assertIn("192.168.1.1", output)
@@ -181,7 +179,7 @@ class TestEnhancedOutput(unittest.TestCase):
 
 
 class TestIntegration(unittest.TestCase):
-    """Integration tests for Day 11 improvements."""
+    """Integration tests for Day 12 improvements."""
     
     def test_duplicate_detection_workflow(self):
         """Test full duplicate detection workflow."""
@@ -201,7 +199,7 @@ class TestIntegration(unittest.TestCase):
         queue_file = Path(temp_dir) / "failed_events.json"
         
         try:
-            with patch('queue.event_queue.FAILED_EVENTS_FILE', queue_file):
+            with patch('threat_queue.event_queue.FAILED_EVENTS_FILE', queue_file):
                 # Simulate failed SIEM forward
                 ioc = {"indicator": "172.16.0.1", "risk_score": 90}
                 save_failed_event(ioc)

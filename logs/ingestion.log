@@ -144,3 +144,61 @@
 2026-05-29 20:43:18,901 | INFO | tip_ingestion | Duplicate IOC skipped: 87.87.87.87
 2026-05-29 20:43:18,901 | WARNING | tip_ingestion | No new indicators were processed
 2026-05-29 20:43:18,902 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-01 03:38:12,973 | INFO | core.database | Removed 1 duplicate records for indicator: 192.168.1.1
+2026-06-01 03:38:12,974 | INFO | core.database | Duplicate cleanup complete: 1 duplicates found, 1 records removed
+2026-06-01 03:38:12,975 | INFO | threat_queue.event_queue | Cleared failed_events.json queue
+2026-06-01 03:38:12,976 | INFO | threat_queue.event_queue | Loaded 2 queued events from failed_events.json
+2026-06-01 03:38:12,976 | INFO | threat_queue.event_queue | IOC queued for retry | Indicator=192.168.1.100 | Queue size=1
+2026-06-01 03:38:16,639 | WARNING | tip_ingestion | Elasticsearch server unreachable on startup
+2026-06-01 03:38:16,660 | ERROR | tip_ingestion | Linux firewall blocking failed: iptables v1.8.11 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+2026-06-01 03:38:16,664 | ERROR | tip_ingestion | Linux firewall blocking failed: <MagicMock name='run().stderr.strip()' id='132702992808800'>
+2026-06-01 03:38:16,676 | ERROR | tip_ingestion | Linux firewall blocking failed: iptables v1.8.11 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+2026-06-01 03:38:36,369 | INFO | core.database | Removed 1 duplicate records for indicator: 192.168.1.1
+2026-06-01 03:38:36,370 | INFO | core.database | Duplicate cleanup complete: 1 duplicates found, 1 records removed
+2026-06-01 03:38:36,371 | INFO | threat_queue.event_queue | Cleared failed_events.json queue
+2026-06-01 03:38:36,371 | INFO | threat_queue.event_queue | Loaded 2 queued events from failed_events.json
+2026-06-01 03:38:36,372 | INFO | threat_queue.event_queue | IOC queued for retry | Indicator=192.168.1.100 | Queue size=1
+2026-06-01 03:38:36,800 | WARNING | tip_ingestion | Elasticsearch server unreachable on startup
+2026-06-01 03:38:36,810 | ERROR | tip_ingestion | Linux firewall blocking failed: iptables v1.8.11 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+2026-06-01 03:38:36,813 | ERROR | tip_ingestion | Linux firewall blocking failed: <MagicMock name='run().stderr.strip()' id='132748793549152'>
+2026-06-01 03:38:36,820 | ERROR | tip_ingestion | Linux firewall blocking failed: iptables v1.8.11 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+2026-06-01 03:38:36,824 | INFO | threat_queue.event_queue | IOC queued for retry | Indicator=172.16.0.1 | Queue size=1
+2026-06-01 03:38:36,824 | INFO | threat_queue.event_queue | Loaded 1 queued events from failed_events.json
+2026-06-01 03:41:44,075 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=1]
+2026-06-01 03:41:44,076 | INFO | tip_ingestion | Running in DEMO mode with 1 indicators
+2026-06-01 03:41:44,093 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-01 03:41:44,107 | INFO | tip_ingestion | Duplicate IOC skipped: 8.8.8.8
+2026-06-01 03:41:44,107 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-01 03:41:44,107 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-01 03:41:57,027 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=1]
+2026-06-01 03:41:57,027 | INFO | tip_ingestion | Running in DEMO mode with 1 indicators
+2026-06-01 03:41:57,038 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-01 03:41:57,053 | INFO | tip_ingestion | Stored IOC 44.44.44.44 from DemoFeed
+2026-06-01 03:41:57,422 | INFO | tip_ingestion | IOC forwarded to SIEM | Indicator=44.44.44.44
+2026-06-01 03:41:57,423 | INFO | tip_ingestion | Forwarded IOC 44.44.44.44 to Elasticsearch SIEM
+2026-06-01 03:41:57,424 | WARNING | tip_ingestion | Firewall enforcement pending root privileges for 44.44.44.44
+2026-06-01 03:41:57,427 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-06-01 03:42:07,955 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=1]
+2026-06-01 03:42:07,965 | INFO | tip_ingestion | Running in DEMO mode with 1 indicators
+2026-06-01 03:42:07,972 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-01 03:42:07,973 | INFO | tip_ingestion | Duplicate IOC skipped: 44.44.44.44
+2026-06-01 03:42:07,973 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-01 03:42:07,973 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-01 03:42:16,345 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=3]
+2026-06-01 03:42:16,346 | INFO | tip_ingestion | Running in DEMO mode with 3 indicators
+2026-06-01 03:42:16,351 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-01 03:42:16,352 | INFO | tip_ingestion | Duplicate IOC skipped: 8.8.8.8
+2026-06-01 03:42:16,353 | INFO | tip_ingestion | Stored IOC 1.1.1.1 from DemoFeed
+2026-06-01 03:42:16,382 | INFO | tip_ingestion | IOC forwarded to SIEM | Indicator=1.1.1.1
+2026-06-01 03:42:16,384 | INFO | tip_ingestion | Forwarded IOC 1.1.1.1 to Elasticsearch SIEM
+2026-06-01 03:42:16,417 | INFO | tip_ingestion | Blocked malicious IP using iptables: 1.1.1.1
+2026-06-01 03:42:16,420 | INFO | tip_ingestion | Duplicate IOC skipped: 44.44.44.44
+2026-06-01 03:42:16,421 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-06-01 03:43:47,241 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=1]
+2026-06-01 03:43:47,242 | INFO | tip_ingestion | Running in DEMO mode with 1 indicators
+2026-06-01 03:43:47,254 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-01 03:43:47,257 | INFO | tip_ingestion | Stored IOC 66.66.66.66 from DemoFeed
+2026-06-01 03:43:47,280 | INFO | tip_ingestion | IOC forwarded to SIEM | Indicator=66.66.66.66
+2026-06-01 03:43:47,280 | INFO | tip_ingestion | Forwarded IOC 66.66.66.66 to Elasticsearch SIEM
+2026-06-01 03:43:47,285 | INFO | tip_ingestion | Blocked malicious IP using iptables: 66.66.66.66
+2026-06-01 03:43:47,285 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
