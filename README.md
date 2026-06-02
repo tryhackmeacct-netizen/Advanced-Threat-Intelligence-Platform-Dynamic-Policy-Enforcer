@@ -379,7 +379,6 @@ cat .env
 # Test feed connectivity
 python3 main.py --mode live --indicators 8.8.8.8
 ```
-# 🚀 Latest Enhancements (June 2026)
 ## 🚀 June 2026 Updates
 
 ### New Features Added
