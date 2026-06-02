@@ -202,3 +202,133 @@
 2026-06-01 03:43:47,280 | INFO | tip_ingestion | Forwarded IOC 66.66.66.66 to Elasticsearch SIEM
 2026-06-01 03:43:47,285 | INFO | tip_ingestion | Blocked malicious IP using iptables: 66.66.66.66
 2026-06-01 03:43:47,285 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-06-02 02:52:26,974 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 02:52:26,976 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 02:52:27,721 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 02:52:27,724 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 02:52:27,786 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 02:52:27,823 | INFO | tip_ingestion | Duplicate IOC skipped: 185.220.101.1
+2026-06-02 02:52:27,824 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 02:52:27,824 | INFO | tip_ingestion | Falling back to DEMO mode
+2026-06-02 02:52:27,838 | INFO | tip_ingestion | Duplicate IOC skipped: 185.220.101.1
+2026-06-02 02:52:27,839 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-02 02:56:23,650 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 02:56:23,650 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 02:56:24,818 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 02:56:24,818 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 02:56:24,818 | WARNING | tip_ingestion | No live indicators were returned by any feed
+2026-06-02 02:56:24,818 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 02:56:24,818 | INFO | tip_ingestion | Falling back to DEMO mode
+2026-06-02 02:56:24,824 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 02:56:24,834 | INFO | tip_ingestion | Stored IOC 45.45.45.45 from DemoFeed
+2026-06-02 02:56:25,513 | INFO | tip_ingestion | IOC forwarded to SIEM | Indicator=45.45.45.45
+2026-06-02 02:56:25,514 | INFO | tip_ingestion | Forwarded IOC 45.45.45.45 to Elasticsearch SIEM
+2026-06-02 02:56:25,516 | WARNING | tip_ingestion | Firewall enforcement pending root privileges for 45.45.45.45
+2026-06-02 02:56:25,516 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-06-02 03:00:53,667 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 03:00:53,667 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 03:00:54,420 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 03:00:54,420 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 03:00:54,420 | WARNING | tip_ingestion | No live indicators were returned by any feed
+2026-06-02 03:00:54,420 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 03:00:54,420 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-02 03:02:04,553 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 03:02:04,553 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 03:02:05,364 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 03:02:05,364 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 03:02:05,375 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 03:02:05,379 | INFO | tip_ingestion | Duplicate IOC skipped: 185.220.101.1
+2026-06-02 03:02:05,379 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 03:02:05,381 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-02 03:02:30,265 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 03:02:30,265 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 03:02:30,996 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 03:02:30,996 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 03:02:31,002 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 03:02:31,005 | INFO | tip_ingestion | Stored IOC 91.219.236.222 from VirusTotal
+2026-06-02 03:02:31,583 | INFO | tip_ingestion | IOC forwarded to SIEM | Indicator=91.219.236.222
+2026-06-02 03:02:31,586 | INFO | tip_ingestion | Forwarded IOC 91.219.236.222 to Elasticsearch SIEM
+2026-06-02 03:02:31,586 | WARNING | tip_ingestion | Firewall enforcement pending root privileges for 91.219.236.222
+2026-06-02 03:02:31,587 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-06-02 03:19:57,893 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 03:19:57,899 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 03:19:58,838 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 03:19:58,838 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 03:19:58,838 | WARNING | tip_ingestion | No live indicators were returned by any feed
+2026-06-02 03:19:58,838 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 03:19:58,839 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-02 03:21:48,385 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 03:21:48,385 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 03:21:49,119 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 03:21:49,119 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 03:21:49,119 | WARNING | tip_ingestion | No live indicators were returned by any feed
+2026-06-02 03:21:49,119 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 03:21:49,119 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-02 03:22:32,904 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 03:22:32,904 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 03:22:33,666 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 03:22:33,667 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 03:22:33,675 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 03:22:33,680 | INFO | tip_ingestion | Duplicate IOC skipped: 91.219.236.222
+2026-06-02 03:22:33,680 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 03:22:33,680 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-02 03:31:48,582 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 03:31:48,583 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 03:31:49,789 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 03:31:49,789 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 03:31:49,795 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 03:31:49,798 | INFO | tip_ingestion | Stored IOC 91.219.236.222 from VirusTotal
+2026-06-02 03:31:49,947 | INFO | tip_ingestion | IOC forwarded to SIEM | Indicator=91.219.236.222
+2026-06-02 03:31:49,947 | INFO | tip_ingestion | Forwarded IOC 91.219.236.222 to Elasticsearch SIEM
+2026-06-02 03:31:49,948 | WARNING | tip_ingestion | Firewall enforcement pending root privileges for 91.219.236.222
+2026-06-02 03:31:49,948 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-06-02 03:32:38,097 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 03:32:38,100 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 03:32:38,827 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 03:32:38,827 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 03:32:38,832 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 03:32:38,834 | INFO | tip_ingestion | Duplicate IOC skipped: 91.219.236.222
+2026-06-02 03:32:38,835 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 03:32:38,835 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-02 03:49:22,566 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 03:49:22,567 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 03:49:23,494 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 03:49:23,495 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 03:49:23,522 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 03:49:23,531 | INFO | tip_ingestion | Duplicate IOC skipped: 91.219.236.222
+2026-06-02 03:49:23,532 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 03:49:23,532 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-02 03:52:14,704 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 03:52:14,707 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 03:52:15,411 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 03:52:15,412 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 03:52:15,420 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 03:52:15,422 | INFO | tip_ingestion | Stored IOC 91.219.236.222 from VirusTotal
+2026-06-02 03:52:15,626 | INFO | tip_ingestion | IOC forwarded to SIEM | Indicator=91.219.236.222
+2026-06-02 03:52:15,626 | INFO | tip_ingestion | Forwarded IOC 91.219.236.222 to Elasticsearch SIEM
+2026-06-02 03:52:15,627 | WARNING | tip_ingestion | Firewall enforcement pending root privileges for 91.219.236.222
+2026-06-02 03:52:15,628 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-06-02 03:52:18,631 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 03:52:18,632 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 03:52:19,390 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 03:52:19,391 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 03:52:19,395 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 03:52:19,397 | INFO | tip_ingestion | Duplicate IOC skipped: 91.219.236.222
+2026-06-02 03:52:19,398 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 03:52:19,398 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-02 04:00:17,914 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 04:00:17,914 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 04:00:19,193 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 04:00:19,193 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 04:00:19,233 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 04:00:19,244 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-02 04:00:19,245 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 04:00:19,245 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-02 04:01:55,765 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-02 04:01:55,766 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-02 04:01:56,780 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-02 04:01:56,780 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-02 04:01:56,786 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-02 04:01:56,788 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-02 04:01:56,788 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-02 04:01:56,788 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs

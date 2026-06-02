@@ -139,7 +139,7 @@ python3 main.py --help
 | **AbuseIPDB** | Free/Pro | 80 | IP reputation, abuse scoring |
 | **DemoFeed** | Demo | 95 | Safe testing without API keys |
 
-### Configure API Keys
+# Latest Enhancements (June 2026)
 
 Create a `.env` file in the project root:
 
@@ -379,6 +379,39 @@ cat .env
 # Test feed connectivity
 python3 main.py --mode live --indicators 8.8.8.8
 ```
+# 🚀 Latest Enhancements (June 2026)
+## 🚀 June 2026 Updates
+
+### New Features Added
+
+* ✅ Live VirusTotal API integration
+* ✅ MongoDB IOC storage and deduplication
+* ✅ Elasticsearch SIEM forwarding
+* ✅ Dynamic firewall policy enforcement
+* ✅ Improved IOC processing logs
+
+### Successfully Tested
+
+* IOC Detection: `91.219.236.222`
+* VirusTotal malicious score detection
+* MongoDB storage and duplicate checking
+* Elasticsearch SIEM ingestion
+* Security event logging
+
+### Example Command
+
+```bash
+python3 main.py --mode live --indicators 91.219.236.222
+```
+
+### Example Result
+
+```text
+Stored IOC 91.219.236.222 from VirusTotal
+IOC forwarded to SIEM
+Risk Score: 100
+```
+
 
 ## ✅ Testing Checklist
 

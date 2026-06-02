@@ -20,19 +20,35 @@ def fetch_indicators(indicators):
             headers=headers,
             timeout=20,
         )
+
         response.raise_for_status()
 
         payload = response.json()
-        stats = payload.get("data", {}).get("attributes", {}).get("last_analysis_stats", {})
 
-        if stats.get("malicious", 0) > 0:
+        stats = (
+            payload.get("data", {})
+            .get("attributes", {})
+            .get("last_analysis_stats", {})
+        )
+
+        malicious = stats.get("malicious", 0)
+        suspicious = stats.get("suspicious", 0)
+
+        print(
+            f"[DEBUG] {indicator} | malicious={malicious} | suspicious={suspicious}"
+        )
+
+        if malicious > 0 or suspicious > 0:
             results.append(
                 {
                     "indicator": indicator,
                     "type": "ip",
                     "source": "VirusTotal",
                     "risk_score": 90,
-                    "details": {"malicious": stats.get("malicious", 0)},
+                    "details": {
+                        "malicious": malicious,
+                        "suspicious": suspicious,
+                    },
                 }
             )
 

@@ -47,7 +47,10 @@ def process_records(records):
             continue
 
         if is_duplicate(collection, indicator):
-            logger.info("Duplicate IOC skipped: %s", indicator)
+            logger.info(
+                "IOC %s already exists in MongoDB - skipping processing",
+                indicator
+            )
             continue
 
         normalized["risk_score"] = calculate_final_score(normalized)
