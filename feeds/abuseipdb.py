@@ -16,8 +16,12 @@ def fetch_indicators(indicators):
 
     for indicator in indicators:
         response = requests.get(
-            f"https://api.abuseipdb.com/api/v2/check/{indicator}",
+            "https://api.abuseipdb.com/api/v2/check",
             headers=headers,
+            params={
+                "ipAddress": indicator,
+                "maxAgeInDays": 90,
+            },
             timeout=20,
         )
         response.raise_for_status()

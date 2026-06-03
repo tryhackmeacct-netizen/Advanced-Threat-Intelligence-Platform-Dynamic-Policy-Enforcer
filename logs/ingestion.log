@@ -332,3 +332,149 @@
 2026-06-02 04:01:56,788 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
 2026-06-02 04:01:56,788 | WARNING | tip_ingestion | No new indicators were processed
 2026-06-02 04:01:56,788 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:01:46,408 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:01:46,409 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:01:48,628 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-03 02:01:48,628 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-03 02:01:48,628 | WARNING | tip_ingestion | No live indicators were returned by any feed
+2026-06-03 02:01:48,628 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:01:48,628 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:02:30,105 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:02:30,105 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:02:31,189 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-03 02:02:31,189 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-03 02:02:31,190 | WARNING | tip_ingestion | No live indicators were returned by any feed
+2026-06-03 02:02:31,190 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:02:31,190 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:02:42,680 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:02:42,680 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:02:44,806 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-03 02:02:44,806 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-03 02:02:44,837 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:02:44,847 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:02:44,848 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:02:44,848 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:04:56,409 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:04:56,412 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:04:57,434 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-03 02:04:57,434 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-03 02:04:57,445 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:04:57,455 | INFO | tip_ingestion | Stored IOC 91.219.236.222 from VirusTotal
+2026-06-03 02:04:58,810 | INFO | tip_ingestion | IOC forwarded to SIEM | Indicator=91.219.236.222
+2026-06-03 02:04:58,811 | INFO | tip_ingestion | Forwarded IOC 91.219.236.222 to Elasticsearch SIEM
+2026-06-03 02:04:58,812 | WARNING | tip_ingestion | Firewall enforcement pending root privileges for 91.219.236.222
+2026-06-03 02:04:58,812 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-06-03 02:08:06,452 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:08:06,453 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:08:08,239 | WARNING | tip_ingestion | Pipeline interrupted by user
+2026-06-03 02:08:22,243 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:08:22,243 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:08:23,960 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-03 02:08:23,961 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-03 02:08:23,961 | WARNING | tip_ingestion | No live indicators were returned by any feed
+2026-06-03 02:08:23,961 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:08:23,961 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:16:05,017 | ERROR | tip_ingestion | Linux firewall unblock failed: iptables v1.8.11 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+2026-06-03 02:16:05,017 | WARNING | tip_ingestion | Rollback failed for 91.219.236.222
+2026-06-03 02:16:24,866 | ERROR | tip_ingestion | Linux firewall unblock failed: iptables v1.8.11 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+2026-06-03 02:16:24,866 | WARNING | tip_ingestion | Rollback failed for 91.219.236.222
+2026-06-03 02:22:30,801 | ERROR | tip_ingestion | Linux firewall unblock failed: iptables: Bad rule (does a matching rule exist in that chain?).
+2026-06-03 02:22:30,801 | WARNING | tip_ingestion | Rollback failed for 91.219.236.222
+2026-06-03 02:22:46,546 | ERROR | tip_ingestion | Linux firewall unblock failed: iptables: Bad rule (does a matching rule exist in that chain?).
+2026-06-03 02:22:46,547 | WARNING | tip_ingestion | Rollback failed for 91.219.236.222
+2026-06-03 02:26:35,549 | INFO | core.database | Removed 1 duplicate records for indicator: 192.168.1.1
+2026-06-03 02:26:35,550 | INFO | core.database | Duplicate cleanup complete: 1 duplicates found, 1 records removed
+2026-06-03 02:26:35,551 | INFO | threat_queue.event_queue | Cleared failed_events.json queue
+2026-06-03 02:26:35,551 | INFO | threat_queue.event_queue | Loaded 2 queued events from failed_events.json
+2026-06-03 02:26:35,552 | INFO | threat_queue.event_queue | IOC queued for retry | Indicator=192.168.1.100 | Queue size=1
+2026-06-03 02:26:35,965 | WARNING | firewall | Firewall enforcement skipped for 192.168.1.100. Root privileges required. Run with 'sudo' or use --firewall-disabled in production.
+2026-06-03 02:26:35,966 | INFO | firewall | Blocked malicious IP: 192.168.1.100
+2026-06-03 02:26:35,967 | INFO | firewall | Firewall is disabled, skipping block for 192.168.1.100
+2026-06-03 02:26:35,967 | INFO | firewall | Unblocked IP: 192.168.1.100
+2026-06-03 02:26:35,968 | INFO | threat_queue.event_queue | IOC queued for retry | Indicator=172.16.0.1 | Queue size=1
+2026-06-03 02:26:35,968 | INFO | threat_queue.event_queue | Loaded 1 queued events from failed_events.json
+2026-06-03 02:29:32,279 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=1]
+2026-06-03 02:29:32,279 | INFO | tip_ingestion | Running in DEMO mode with 1 indicators
+2026-06-03 02:29:32,349 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:29:32,359 | INFO | tip_ingestion | IOC 123.123.123.123 already exists in MongoDB - skipping processing
+2026-06-03 02:29:32,360 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:29:32,360 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:29:39,327 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=DEMO, INDICATORS=2]
+2026-06-03 02:29:39,328 | INFO | tip_ingestion | Running in DEMO mode with 2 indicators
+2026-06-03 02:29:39,335 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:29:39,336 | INFO | tip_ingestion | IOC 123.123.123.123 already exists in MongoDB - skipping processing
+2026-06-03 02:29:39,338 | INFO | tip_ingestion | IOC 45.45.45.45 already exists in MongoDB - skipping processing
+2026-06-03 02:29:39,338 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:29:39,338 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:29:49,361 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:29:49,361 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:29:50,687 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-03 02:29:50,687 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-03 02:29:50,688 | WARNING | tip_ingestion | No live indicators were returned by any feed
+2026-06-03 02:29:50,688 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:29:50,688 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:29:57,754 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:29:57,755 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:29:58,846 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-03 02:29:58,846 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-03 02:29:58,853 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:29:58,855 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:29:58,855 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:29:58,856 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:32:15,620 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:32:15,620 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:32:16,712 | ERROR | tip_ingestion | Feed AlienVault failed: ALIENVAULT_API_KEY is not configured
+2026-06-03 02:32:16,712 | ERROR | tip_ingestion | Feed AbuseIPDB failed: ABUSEIPDB_API_KEY is not configured
+2026-06-03 02:32:16,717 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:32:16,721 | INFO | tip_ingestion | Stored IOC 91.219.236.222 from VirusTotal
+2026-06-03 02:32:16,795 | INFO | tip_ingestion | IOC forwarded to SIEM | Indicator=91.219.236.222
+2026-06-03 02:32:16,808 | INFO | tip_ingestion | Forwarded IOC 91.219.236.222 to Elasticsearch SIEM
+2026-06-03 02:32:16,815 | WARNING | tip_ingestion | Firewall enforcement pending root privileges for 91.219.236.222
+2026-06-03 02:32:16,815 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-06-03 02:42:35,974 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:42:35,974 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:42:39,380 | ERROR | tip_ingestion | Feed AbuseIPDB failed: 404 Client Error: Not Found for url: https://api.abuseipdb.com/api/v2/check/91.219.236.222
+2026-06-03 02:42:39,388 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:42:39,390 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:42:39,390 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:42:39,390 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:42:39,390 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:49:26,783 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:49:26,783 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:49:33,949 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:49:33,951 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:49:33,951 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:49:33,951 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:49:33,951 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:51:15,644 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:51:15,644 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:51:18,585 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:51:18,587 | INFO | tip_ingestion | Stored IOC 91.219.236.222 from VirusTotal
+2026-06-03 02:51:18,656 | INFO | tip_ingestion | IOC forwarded to SIEM | Indicator=91.219.236.222
+2026-06-03 02:51:18,656 | INFO | tip_ingestion | Forwarded IOC 91.219.236.222 to Elasticsearch SIEM
+2026-06-03 02:51:18,657 | WARNING | tip_ingestion | Firewall enforcement pending root privileges for 91.219.236.222
+2026-06-03 02:51:18,659 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:51:18,659 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-06-03 02:51:27,837 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:51:27,838 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:51:30,605 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:51:30,606 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:51:30,607 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:51:30,607 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:51:30,607 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs
+2026-06-03 02:53:38,715 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:53:38,715 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:53:42,098 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:53:42,100 | INFO | tip_ingestion | Stored IOC 91.219.236.222 from VirusTotal
+2026-06-03 02:53:42,140 | INFO | tip_ingestion | IOC forwarded to SIEM | Indicator=91.219.236.222
+2026-06-03 02:53:42,141 | INFO | tip_ingestion | Forwarded IOC 91.219.236.222 to Elasticsearch SIEM
+2026-06-03 02:53:42,143 | WARNING | tip_ingestion | Firewall enforcement pending root privileges for 91.219.236.222
+2026-06-03 02:53:42,145 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:53:42,145 | INFO | tip_ingestion | [SUCCESS] Processed 1 IOCs
+2026-06-03 02:54:58,274 | INFO | tip_ingestion | Starting Threat Intelligence Platform [MODE=LIVE, INDICATORS=1]
+2026-06-03 02:54:58,274 | INFO | tip_ingestion | Running in LIVE mode - fetching from feeds
+2026-06-03 02:55:00,949 | INFO | core.database | MongoDB indexes ensured for collection 'ioc_data'
+2026-06-03 02:55:00,951 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:55:00,951 | INFO | tip_ingestion | IOC 91.219.236.222 already exists in MongoDB - skipping processing
+2026-06-03 02:55:00,952 | WARNING | tip_ingestion | No new indicators were processed
+2026-06-03 02:55:00,952 | INFO | tip_ingestion | [SUCCESS] Processed 0 IOCs

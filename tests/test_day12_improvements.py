@@ -141,9 +141,24 @@ class TestFirewallPermissions(unittest.TestCase):
         with patch('core.config.FIREWALL_ENABLED', True):
             result = block_ip("192.168.1.100")
         
-        # Should attempt to run subprocess
+        self.assertTrue(result)
         self.assertTrue(mock_run.called)
-    
+
+    @patch('os.geteuid')
+    @patch('subprocess.run')
+    def test_unblock_ip_with_root(self, mock_run, mock_geteuid):
+        """Verify rollback removes firewall rule when root."""
+        mock_geteuid.return_value = 0
+        mock_run.return_value = MagicMock()
+
+        from policy_enforcer.firewall_manager import unblock_ip
+
+        with patch('core.config.FIREWALL_ENABLED', True):
+            result = unblock_ip("192.168.1.100")
+
+        self.assertTrue(result)
+        self.assertTrue(mock_run.called)
+
     @patch('core.config.FIREWALL_ENABLED', False)
     def test_firewall_disabled(self):
         """Verify firewall respects disabled configuration."""
