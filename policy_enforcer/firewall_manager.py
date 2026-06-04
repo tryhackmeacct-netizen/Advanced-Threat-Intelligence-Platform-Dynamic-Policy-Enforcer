@@ -79,10 +79,15 @@ def block_ip(ip):
         return False
 
     command = [find_iptables_command(), "-A", "INPUT", "-s", ip, "-j", "DROP"]
+    logger.debug("Applying iptables rule for %s: %s", ip, " ".join(command))
 
     try:
-        subprocess.run(command, check=True)
+        result = subprocess.run(command, check=True, capture_output=True, text=True)
         logger.info("Blocked malicious IP: %s", ip)
+        if result.stdout:
+            logger.debug("iptables stdout: %s", result.stdout.strip())
+        if result.stderr:
+            logger.debug("iptables stderr: %s", result.stderr.strip())
         return True
     except FileNotFoundError:
         logger.error("iptables binary not found. Firewall could not apply rule for %s", ip)
@@ -115,10 +120,15 @@ def unblock_ip(ip):
         return False
 
     command = [find_iptables_command(), "-D", "INPUT", "-s", ip, "-j", "DROP"]
+    logger.debug("Removing iptables rule for %s: %s", ip, " ".join(command))
 
     try:
-        subprocess.run(command, check=True)
+        result = subprocess.run(command, check=True, capture_output=True, text=True)
         logger.info("Unblocked IP: %s", ip)
+        if result.stdout:
+            logger.debug("iptables stdout: %s", result.stdout.strip())
+        if result.stderr:
+            logger.debug("iptables stderr: %s", result.stderr.strip())
         return True
     except FileNotFoundError:
         logger.error("iptables binary not found. Firewall could not remove rule for %s", ip)

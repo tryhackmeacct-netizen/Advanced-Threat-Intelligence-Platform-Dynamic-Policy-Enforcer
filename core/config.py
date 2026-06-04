@@ -16,6 +16,16 @@ load_dotenv()
 
 
 MONGO_URI = os.getenv("MONGO_URI", DEFAULT_MONGO_URI)
+MONGO_USER = os.getenv("MONGO_USER")
+MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
+MONGO_AUTH_SOURCE = os.getenv("MONGO_AUTH_SOURCE", "admin")
+
+if not os.getenv("MONGO_URI") and MONGO_USER and MONGO_PASSWORD:
+    MONGO_URI = (
+        f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@localhost:27017/"
+        f"?authSource={MONGO_AUTH_SOURCE}"
+    )
+
 DB_NAME = os.getenv("DB_NAME", DEFAULT_DB_NAME)
 COLLECTION_NAME = os.getenv("COLLECTION_NAME", DEFAULT_COLLECTION_NAME)
 
@@ -38,6 +48,9 @@ RISK_THRESHOLD = int(os.getenv("RISK_THRESHOLD", str(DEFAULT_RISK_THRESHOLD)))
 BLOCK_THRESHOLD = int(os.getenv("BLOCK_THRESHOLD", str(RISK_THRESHOLD)))
 FIREWALL_ENABLED = os.getenv("FIREWALL_ENABLED", str(DEFAULT_FIREWALL_ENABLED)).lower() in ("1", "true", "yes")
 ELASTICSEARCH_URL = os.getenv("ELASTICSEARCH_URL", DEFAULT_ELASTICSEARCH_URL)
+ELASTICSEARCH_USER = os.getenv("ELASTICSEARCH_USER", "elastic")
+ELASTICSEARCH_PASSWORD = os.getenv("ELASTICSEARCH_PASSWORD", "utU--9H79mHMhK56tXin")
+ELASTICSEARCH_CA_CERT_PATH = os.getenv("ELASTICSEARCH_CA_CERT_PATH", "/etc/elasticsearch/certs/http_ca.crt")
 ES_INDEX_NAME = os.getenv("ES_INDEX_NAME", "threat_intelligence")
 BLOCKED_IPS_COLLECTION = os.getenv("BLOCKED_IPS_COLLECTION", "blocked_ips")
 SIEM_ENABLED = os.getenv("SIEM_ENABLED", "1") == "1"
