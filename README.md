@@ -269,6 +269,27 @@ If the certificate is stored in a different location, set:
 export ELASTICSEARCH_CA_CERT_PATH=/path/to/http_ca.crt
 ```
 
+To keep verification enabled by default, no additional configuration is required. If you must temporarily bypass TLS validation while regenerating the CA certificate, set:
+```bash
+export ELASTICSEARCH_VERIFY_CERTS=0
+```
+
+To allow the application to retry insecurely only when strict TLS validation fails because the CA lacks the Key Usage extension, also set:
+```bash
+export ELASTICSEARCH_ALLOW_INSECURE_FALLBACK=1
+```
+
+### Regenerating Elasticsearch HTTP certificates
+A fixed CA certificate and HTTP server keystore have been generated in the repository under `generated_elastic_certs`.
+
+Run the installer script to regenerate and install the fixed certificates:
+```bash
+cd /home/sanket/Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer
+./scripts/install_elasticsearch_certs.sh
+```
+
+Then restart Elasticsearch and verify `ELASTICSEARCH_VERIFY_CERTS=1` is enabled.
+
 ## 📋 Expected Outputs
 
 ### Demo Mode Successful Run

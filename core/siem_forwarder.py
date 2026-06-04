@@ -1,4 +1,5 @@
 import os
+import ssl
 from pathlib import Path
 
 from elasticsearch import Elasticsearch
@@ -11,10 +12,12 @@ from elasticsearch.exceptions import (
 )
 
 from core.config import (
+    ELASTICSEARCH_ALLOW_INSECURE_FALLBACK,
     ELASTICSEARCH_CA_CERT_PATH,
     ELASTICSEARCH_URL,
     ELASTICSEARCH_PASSWORD,
     ELASTICSEARCH_USER,
+    ELASTICSEARCH_VERIFY_CERTS,
     ES_INDEX_NAME,
     SIEM_ENABLED,
 )
@@ -82,6 +85,19 @@ def _is_ca_cert_readable(ca_cert_path):
     return True
 
 
+def _build_tls_context(ca_cert_path):
+    context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH, cafile=ca_cert_path)
+    context.check_hostname = True
+
+    if hasattr(ssl, "OP_LEGACY_SERVER_CONNECT"):
+        context.options |= ssl.OP_LEGACY_SERVER_CONNECT
+        logger.warning(
+            "Enabling legacy SSL compatibility for Elasticsearch CA validation"
+        )
+
+    return context
+
+
 def _build_elasticsearch_client():
     logger.debug(
         "Initializing Elasticsearch client: url=%s ca_cert=%s",
@@ -106,12 +122,23 @@ def _build_elasticsearch_client():
         logger.warning("Elasticsearch authentication is not fully configured; basic_auth will not be provided")
 
     try:
-        client_args = {
-            "hosts": [ELASTICSEARCH_URL],
-            "verify_certs": True,
-            "ca_certs": ELASTICSEARCH_CA_CERT_PATH,
-            "request_timeout": 30,
-        }
+        if not ELASTICSEARCH_VERIFY_CERTS:
+            logger.warning(
+                "Elasticsearch TLS certificate verification is disabled by configuration; this is insecure"
+            )
+            client_args = {
+                "hosts": [ELASTICSEARCH_URL],
+                "verify_certs": False,
+                "request_timeout": 30,
+            }
+        else:
+            ssl_context = _build_tls_context(ELASTICSEARCH_CA_CERT_PATH)
+            client_args = {
+                "hosts": [ELASTICSEARCH_URL],
+                "verify_certs": True,
+                "ssl_context": ssl_context,
+                "request_timeout": 30,
+            }
 
         if auth:
             client_args["basic_auth"] = auth
@@ -120,6 +147,29 @@ def _build_elasticsearch_client():
 
         if not es_client.ping():
             logger.error("Elasticsearch ping returned False for %s", ELASTICSEARCH_URL)
+
+            if ELASTICSEARCH_VERIFY_CERTS and ELASTICSEARCH_ALLOW_INSECURE_FALLBACK:
+                logger.warning(
+                    "Elasticsearch ping failed with TLS verification enabled; retrying with verify_certs=False"
+                )
+                fallback_args = {
+                    "hosts": [ELASTICSEARCH_URL],
+                    "verify_certs": False,
+                    "request_timeout": 30,
+                }
+                if auth:
+                    fallback_args["basic_auth"] = auth
+
+                fallback_client = Elasticsearch(**fallback_args)
+                if fallback_client.ping():
+                    logger.warning(
+                        "Elasticsearch established connection with insecure TLS verification fallback. "
+                        "Regenerate the Elasticsearch CA certificate with a proper Key Usage extension "
+                        "and re-enable ELASTICSEARCH_VERIFY_CERTS to restore secure TLS."
+                    )
+                    return fallback_client
+
+                logger.error("Elasticsearch ping returned False for %s after insecure fallback", ELASTICSEARCH_URL)
             return None
 
         logger.info("Elasticsearch client initialized successfully")
