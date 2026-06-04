@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 
+import os
+import sys
 import argparse
+
+# Ensure project root is on sys.path when running this file directly
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from policy_enforcer.enforcer_daemon import monitor_enforcement
 from policy_enforcer.rollback import rollback_ip
