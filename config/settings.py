@@ -7,4 +7,4 @@ FIREWALL_ENABLED = True
 ELASTICSEARCH_URL = "https://localhost:9200"
 ELASTICSEARCH_CA_CERT_PATH = "/etc/elasticsearch/certs/http_ca.crt"
 ELASTICSEARCH_USER = "elastic"
-ELASTICSEARCH_PASSWORD = "utU--9H79mHMhK56tXin"
+ELASTICSEARCH_PASSWORD = ""  # Set via .env file - DO NOT hardcode
