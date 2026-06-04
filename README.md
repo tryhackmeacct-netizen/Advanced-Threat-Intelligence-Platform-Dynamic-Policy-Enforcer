@@ -40,7 +40,7 @@ Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer/
 ├── requirements.txt                 # Python dependencies
 ├── README.md                        # This file
 ├── REVIEW.md             # Comprehensive review guide (350+ lines)
-├── DAY12_IMPROVEMENTS.md            # Day 13 - Enhancements
+├── DAY12_IMPROVEMENTS.md            # Detailed reliability and SIEM improvement notes
 │
 ├── core/                            # Core threat processing modules
 │   ├── __init__.py
@@ -68,11 +68,12 @@ Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer/
 │   ├── __init__.py
 │   └── virustotal.py                # Standalone ingestion example
 │
-├── normalization/                   # Legacy normalization modules
-│   ├── __init__.py
-│   ├── cleaner.py
-│   ├── deduplicator.py
-│   └── risk_scoring.py
+├── scripts/                         # CLI and policy utilities
+│   └── policy_cli.py                # Policy management CLI utility
+├── es_diagnose.py                   # Elasticsearch TLS connectivity diagnostics
+├── rollback.py                      # Rollback helper for policy enforcement
+├── threat_queue/                    # Resilient SIEM event queue
+│   └── event_queue.py               # Failed forwarding persistence
 │
 ├── logs/                            # Runtime logs
 │   ├── ingestion.log                # Application logs
@@ -91,6 +92,8 @@ Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer/
 - ✅ **MongoDB Persistence** - Proper schema with timestamps and metadata
 - ✅ **Automatic Firewall Enforcement** - iptables rules for high-risk IPs
 - ✅ **SIEM-Ready Logging** - Structured security events for ELK/Kibana
+- ✅ **TLS-safe Elasticsearch Forwarding** - CA certificate validation with diagnostics
+- ✅ **Rollback CLI** - Command-line unblock and rollback support
 - ✅ **CLI Interface** - Professional argparse-based command-line tool
 - ✅ **Error Handling** - Comprehensive exception handling and logging
 - ✅ **Demo Mode** - Safe testing without requiring API keys
@@ -126,6 +129,10 @@ python3 main.py --mode live --indicators 8.8.8.8 1.1.1.1
 
 # Show help
 python3 main.py --help
+
+# Policy CLI helper
+python3 scripts/policy_cli.py start-daemon --interval 15
+python3 scripts/policy_cli.py rollback 203.0.113.99 --reason "false_positive"
 ```
 
 ## 📊 OSINT Feeds
@@ -139,7 +146,7 @@ python3 main.py --help
 | **AbuseIPDB** | Free/Pro | 80 | IP reputation, abuse scoring |
 | **DemoFeed** | Demo | 95 | Safe testing without API keys |
 
-# Latest Enhancements (June 2026)
+### Configure API Keys
 
 Create a `.env` file in the project root:
 
@@ -148,6 +155,12 @@ Create a `.env` file in the project root:
 MONGO_URI=mongodb://localhost:27017/
 DB_NAME=threat_intelligence
 COLLECTION_NAME=ioc_data
+
+# Elasticsearch TLS / authentication settings
+ELASTICSEARCH_URL=https://localhost:9200
+ELASTICSEARCH_CA_CERT_PATH=/etc/elasticsearch/certs/http_ca.crt
+ELASTICSEARCH_USER=elastic
+ELASTICSEARCH_PASSWORD=your_elastic_password
 
 # OSINT Feed API Keys
 VIRUSTOTAL_API_KEY=your_virustotal_api_key
@@ -175,6 +188,16 @@ Default → 60 (Unknown Source)
 **Firewall Enforcement Threshold:** ≥ 80 (automatically blocks all indicators scoring 80 or higher)
 
 ## 🔧 Advanced Commands
+
+### Start the Enforcement Daemon
+```bash
+python3 scripts/policy_cli.py start-daemon --interval 15
+```
+
+### Run Rollback CLI
+```bash
+python3 scripts/policy_cli.py rollback 91.219.236.222 --reason "false_positive"
+```
 
 ### Check MongoDB Database
 ```bash
@@ -227,6 +250,23 @@ tail -f logs/security_events.log
 ```bash
 sudo systemctl status mongod
 mongosh --version
+```
+
+### Check Elasticsearch TLS connectivity
+```bash
+# Diagnose Elasticsearch URL, auth, and CA certificate configuration
+python3 es_diagnose.py
+```
+
+If the CA certificate is not readable by the application user, fix permissions:
+```bash
+sudo chmod 755 /etc/elasticsearch /etc/elasticsearch/certs
+sudo chmod 644 /etc/elasticsearch/certs/http_ca.crt
+```
+
+If the certificate is stored in a different location, set:
+```bash
+export ELASTICSEARCH_CA_CERT_PATH=/path/to/http_ca.crt
 ```
 
 ## 📋 Expected Outputs
@@ -371,6 +411,14 @@ sudo iptables -L INPUT -n
 grep "BLOCK_FAILED" logs/security_events.log
 ```
 
+### Elasticsearch TLS / CA Diagnostics
+```bash
+# Check that Elasticsearch is reachable with TLS validation
+python3 es_diagnose.py
+```
+
+If the CA certificate path is invalid or not readable, update `ELASTICSEARCH_CA_CERT_PATH` and verify file access.
+
 ### API Key Issues
 ```bash
 # Verify .env file exists
@@ -379,38 +427,6 @@ cat .env
 # Test feed connectivity
 python3 main.py --mode live --indicators 8.8.8.8
 ```
-## 🚀 June 2026 Updates
-
-### New Features Added
-
-* ✅ Live VirusTotal API integration
-* ✅ MongoDB IOC storage and deduplication
-* ✅ Elasticsearch SIEM forwarding
-* ✅ Dynamic firewall policy enforcement
-* ✅ Improved IOC processing logs
-
-### Successfully Tested
-
-* IOC Detection: `91.219.236.222`
-* VirusTotal malicious score detection
-* MongoDB storage and duplicate checking
-* Elasticsearch SIEM ingestion
-* Security event logging
-
-### Example Command
-
-```bash
-python3 main.py --mode live --indicators 91.219.236.222
-```
-
-### Example Result
-
-```text
-Stored IOC 91.219.236.222 from VirusTotal
-IOC forwarded to SIEM
-Risk Score: 100
-```
-
 
 ## ✅ Testing Checklist
 

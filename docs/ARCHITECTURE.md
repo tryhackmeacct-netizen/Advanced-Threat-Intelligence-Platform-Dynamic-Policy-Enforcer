@@ -10,39 +10,39 @@ The design supports Banking & Financial cybersecurity by focusing on high-fideli
 
 ## Enterprise Architecture Overview
 
-The platform is designed as a modular security automation engine with clear separation between:
+The platform is a modular security automation engine with these responsibilities:
 
 - `data_ingestion/` — feed connectors and API orchestrators
 - `core/` — normalization, deduplication, scoring, storage, logging
 - `feeds/` — OSINT threat feed integrations
 - `policy_enforcer/` — firewall enforcement and rollback
-- `logs/` — running audit trails and SIEM export files
+- `logs/` — audit trails and SIEM export files
 - `docs/` — architecture, roadmap, SOC workflows
 
 ### High-level Flow
 
 1. `main.py` starts the platform in `demo` or `live` mode.
-2. Feed collectors query OSINT APIs or build synthetic demo records.
-3. `core.normalizer` cleans each IOC and maps it to a consistent schema.
+2. Feed collectors query OSINT APIs or generate demo indicators.
+3. `core.normalizer` standardizes each IOC and maps it to a schema.
 4. `core.deduplicator` checks MongoDB for existing entries.
-5. `core.risk_scoring` assigns a dynamic 0–100 threat score.
+5. `core.risk_scoring` assigns a normalized 0–100 threat score.
 6. Documents are persisted in MongoDB.
-7. `core.security_logger` emits SIEM-ready security events.
-8. `policy_enforcer.firewall_manager` blocks IPs at `iptables` if risk >= 80.
-9. Filebeat/Logstash ship logs into Elasticsearch.
+7. `core.security_logger` writes SIEM-ready security events.
+8. `policy_enforcer.firewall_manager` blocks IPs via `iptables` for risk >= 80.
+9. Log shippers move events into Elasticsearch.
 10. Kibana dashboards visualize SOC metrics.
 
 ### Deployment Pattern
 
-The architecture is production-ready for a Linux host or a containerized SIEM lab:
+The architecture supports Linux hosts and containerized SIEM labs:
 
-- Python microservice runs as a systemd service or cron job
-- MongoDB stores normalized IOC collections
+- Python service can run as systemd or a cron-driven task
+- MongoDB stores normalized IOC data
 - Elasticsearch ingests security event logs
-- Kibana provides dashboards for SOC monitoring
-- iptables performs kernel-level blocking on the host
+- Kibana visualizes SOC metrics
+- iptables enforces host-level blocks
 
-This supports a banking SOC environment where automated detection and documented policy enforcement are required.
+This design fits banking SOC requirements for automated detection and policy enforcement.
 
 ---
 
@@ -52,10 +52,9 @@ This supports a banking SOC environment where automated detection and documented
 Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer/
 ├── core/                    # Enterprise processing engine
 ├── feeds/                   # OSINT and reputation connectors
-├── data_ingestion/          # feed orchestration and schedulers
-├── normalization/           # legacy normalization helpers
+├── data_ingestion/          # feed orchestration and ingestion helpers
 ├── policy_enforcer/         # firewall automation and rollback
-├── database/                # MongoDB connection utilities
+├── scripts/                 # CLI management and rollback utilities
 ├── logs/                    # runtime logs and SIEM export
 ├── docs/                    # architecture, plans, dashboards
 ├── .env.example             # secure configuration template
@@ -82,13 +81,14 @@ Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer/
   - Additional feeds will be added for URLhaus, ThreatFox, Feodo Tracker, CIRCL.
 
 - `data_ingestion/`
-  - Contains specialized ingestion scripts and scheduled data loaders.
+  - Contains specialized ingestion scripts and optional helpers for feed orchestration.
 
 - `policy_enforcer/`
   - `firewall_manager.py` implements kernel-level iptables blocking and rollback.
+  - `enforcer_daemon.py` monitors MongoDB for high-risk IOCs and enforces policies.
 
-- `database/`
-  - `mongo_connection.py` centralizes MongoDB client configuration.
+- `scripts/`
+  - `policy_cli.py` provides CLI commands for daemon startup and rollback actions.
 
 - `logs/`
   - `ingestion.log` for pipeline audit and error tracking.
@@ -153,17 +153,17 @@ The platform uses only free OSINT feeds and open-source tools.
 
 ### 1. IOC Normalization Engine
 
-Normalization is critical for enterprise SOC operations.
+Normalization is essential for SOC operations.
 
 Why normalization matters:
-- Different feeds use different field names, formats, and metadata.
-- Normalization ensures every IOC can be compared, searched, and correlated.
-- SIEM systems require a predictable schema for pattern detection and dashboards.
-- SOC analysts depend on consistent attributes for fast triage and incident reports.
+- Feeds use different field names, formats, and metadata.
+- Normalized IOCs can be compared, searched, and correlated.
+- SIEM systems require a predictable schema for detection and dashboards.
+- Analysts depend on consistent fields for fast triage and incident response.
 
 #### Normalized IOC Schema
 
-```
+```json
 {
   "indicator": "185.220.101.1",
   "type": "ip",
@@ -187,14 +187,14 @@ Why normalization matters:
 }
 ```
 
-This schema supports:
-- `indicator` normalization for deduplication
-- `type` for IP/domain/url/hash/CVE classification
-- `source` for provenance and weight
-- `threat_type` for category-driven correlation
-- `risk_score` for automated blocking decisions
-- `status` and `blocked` for SOC dashboards
-- `tags` for campaign mapping and analyst notes
+This schema enables:
+- deduplication by normalized `indicator`
+- IOC classification by `type`
+- source attribution for scoring
+- correlation by `threat_type`
+- blocking decisions from `risk_score`
+- dashboard support from `status` and `blocked`
+- analyst notes through `tags` and `details`
 
 ### 2. Risk Scoring Engine
 
@@ -375,10 +375,10 @@ Auto-blacklisting should be gated by policy and threshold.
 
 ### 4. Rollback Mechanism
 
-Rollback is mandatory for banking reliability.
+Rollback is required for banking reliability.
 
-- `unblock_ip(ip)` removes the iptables DROP rule
-- rollback can be triggered automatically after timeout or manually
+- `unblock_ip(ip)` removes the `iptables` DROP rule
+- rollback can be triggered manually or after policy review
 - store rollback metadata in MongoDB:
   - `rollback_reason`
   - `rollback_time`
@@ -386,28 +386,28 @@ Rollback is mandatory for banking reliability.
 
 ### 5. Rule Validation
 
-Before adding or removing rules:
+Before changing rules:
 - validate IP format
-- verify `iptables` is reachable
-- test `sudo` permissions
-- simulate rule changes in a safe path before execution
+- verify `iptables` is available
+- confirm permissions for `sudo`
+- check existing rules before modification
 
 ### 6. Duplicate Rule Prevention
 
-Implementation must check current rules via `iptables -C INPUT -s <ip> -j DROP`.
-If the rule already exists, the engine must skip insertion and log a de-duped enforcement event.
+Check `iptables -C INPUT -s <ip> -j DROP` before adding a rule.
+If the rule exists, skip insertion and log the result.
 
 ### 7. Audit Logging
 
-Each enforcement decision is logged with:
+Log each enforcement decision with:
 - timestamp
 - indicator
 - risk score
 - action
 - decision source
-- operator (system or analyst)
+- operator
 
-This is essential for SOC review and regulatory audits.
+This supports SOC review and regulatory audits.
 
 ### 8. False Positive Handling
 
@@ -633,7 +633,7 @@ Recommended fields:
 
 ## Week 3 Execution Roadmap
 
-1. Build a daemon service in `policy_enforcer/monitor.py`.
+1. Build a daemon service in `policy_enforcer/enforcer_daemon.py`.
 2. Implement `block_ip`, `unblock_ip`, and `rule_exists` safely.
 3. Add whitelist and blacklist config support.
 4. Add rollback metadata to MongoDB IOC documents.

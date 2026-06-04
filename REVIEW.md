@@ -35,7 +35,7 @@ A production-ready threat intelligence automation platform that ingests maliciou
 
 ### Week 1: Core Ingestion, Storage, and Enforcement
 
-#### Day 1: Project Initialization & Environment Setup
+#### Project Initialization & Environment Setup
 **Status:** ✅ Complete
 
 What was built:
@@ -52,7 +52,7 @@ $ python3 main.py --mode demo --indicators 203.0.113.99
 ✓ 203.0.113.99 (ip) - Risk: 95 - Source: DemoFeed
 ```
 
-#### Day 2: OSINT Threat Intelligence Ingestion
+#### OSINT Threat Intelligence Ingestion
 **Status:** ✅ Complete
 
 What was built:
@@ -75,7 +75,7 @@ $ python3 main.py --mode live
 2026-05-27 07:09:20,505 | INFO | tip_ingestion | Feed AbuseIPDB successful
 ```
 
-#### Day 3: IOC Normalization & Risk Scoring
+#### IOC Normalization & Risk Scoring
 **Status:** ✅ Complete
 
 What was built:
@@ -102,7 +102,7 @@ $ python3 main.py --mode demo --indicators 203.0.113.99 198.51.100.99
 ✓ 198.51.100.99 (ip) - Risk: 95 - Source: DemoFeed
 ```
 
-#### Day 4: MongoDB Threat Database Integration
+#### MongoDB Threat Database Integration
 **Status:** ✅ Complete
 
 What was built:
@@ -132,7 +132,7 @@ $ python3 -c "from pymongo import MongoClient; ...collection.count_documents({})
 Total documents: 12
 ```
 
-#### Day 5: Dynamic Firewall Policy Enforcer
+#### Dynamic Firewall Policy Enforcer
 **Status:** ✅ Complete
 
 What was built:
@@ -161,7 +161,7 @@ DROP       all  --  192.0.2.99    0.0.0.0/0
 
 ### Week 2: SIEM, Enforcement Daemon, and Production Hardening
 
-#### Day 6: Centralized Security Logging & SIEM Preparation
+#### Centralized Security Logging & SIEM Preparation
 **Status:** ✅ Complete
 
 What was built:
@@ -184,7 +184,7 @@ $ tail -5 logs/security_events.log
 2026-05-27 11:09:29 | EVENT=MALICIOUS_IP_DETECTED | IP=203.0.113.99 | SOURCE=DemoFeed | RISK=95 | ACTION=DETECTED
 2026-05-27 11:09:29 | EVENT=FIREWALL_BLOCK | IP=203.0.113.99 | SOURCE=DemoFeed | RISK=95 | ACTION=BLOCKED
 ```
-#### Day 7: SIEM Integration & Elasticsearch Forwarding
+#### SIEM Integration & Elasticsearch Forwarding
 
 **Status:** ✅ Complete (Architecture + Integration Layer)
 
@@ -208,6 +208,8 @@ Threat IOC → Risk Scoring → MongoDB → Elasticsearch Forwarding → SIEM Da
 * IOC forwarding to Elasticsearch
 * JSON-based security event formatting
 * Elasticsearch availability checking
+* CA certificate validation and TLS startup diagnostics
+* `es_diagnose.py` helper for URL/auth/CA/reachability checks
 * Fail-safe handling when SIEM server is offline
 * Logging fallback mechanism
 * Modular SIEM integration architecture
@@ -222,6 +224,14 @@ $ python3 main.py --mode demo --indicators 87.87.87.87
 2026-05-29 20:40:31,260 | WARNING | tip_ingestion | Failed to forward IOC 87.87.87.87 to Elasticsearch SIEM
 ```
 
+Additional tests include:
+
+```bash
+python3 es_diagnose.py
+```
+
+This helper validates Elasticsearch URL, CA certificate existence/readability, and authenticated TLS connectivity.
+
 ### Files Added:
 
 * `core/siem_forwarder.py`
@@ -234,7 +244,7 @@ This module prepares the platform for enterprise SOC environments where security
 
 ---
 
-#### Day 8: Dynamic Enforcement Daemon & Rollback System
+#### Dynamic Enforcement Daemon & Rollback System
 
 **Status:** ✅ Complete
 
@@ -286,7 +296,7 @@ The Dynamic Policy Enforcer reduces manual SOC workload by automatically transla
 
 ---
 
-#### Day 9: Project Refactoring, Validation & Production Hardening
+#### Project Refactoring, Validation & Production Hardening
 
 **Status:** ✅ Complete
 
@@ -339,7 +349,7 @@ Stored IOC 87.87.87.87 from DemoFeed
 
 The platform now behaves more like a production-ready cybersecurity automation system with improved reliability, validation, modularity, and operational safety.
 
-### Day 10: Security Hardening, Indexing, and Whitelist Protection
+### Security Hardening, Indexing, and Whitelist Protection
 **Status:** ✅ Complete
 
 ### What was built:
@@ -367,7 +377,7 @@ The platform now behaves more like a production-ready cybersecurity automation s
 
 ### Security Benefit:
 
-Day 10 improves operational safety and performance by adding database indexing, preventing false blocking of trusted hosts, preserving score provenance, and adding test coverage.
+This section improves operational safety and performance by adding database indexing, preventing false blocking of trusted hosts, preserving score provenance, and adding test coverage.
 
 
 ## Review Commands
@@ -528,6 +538,7 @@ options:
 |-----------|-----------|
 | Language | Python 3.8+ |
 | Database | MongoDB with PyMongo |
+| Search/Analytics | Elasticsearch |
 | Firewall | Linux iptables |
 | Logging | Python logging module |
 | Config | python-dotenv |
@@ -557,7 +568,7 @@ options:
 2. **Elasticsearch Integration** - Ship logs to ELK Stack
 3. **Dashboard** - Build Grafana/Kibana dashboard for visualization
 4. **API Server** - REST API for IOC querying and management
-5. **Feed Scheduler** - Schedule feed ingestion with APScheduler
+5. **Feed Scheduler** - Add scheduled ingestion support
 6. **Threat Correlation** - ML-based threat pattern detection
 7. **GeoIP Mapping** - Geographic threat analysis
 8. **Slack Alerts** - Real-time notifications for high-risk threats
@@ -570,7 +581,7 @@ options:
 
 ---
 
-#### Day 13: Platform Reliability and SIEM Integration Readiness
+#### Platform Reliability and SIEM Integration Readiness
 
 **Status:** ✅ Complete
 
@@ -580,7 +591,7 @@ options:
 * Resilient SIEM forwarding with event queueing system for Elasticsearch unavailability
 * Root privilege checks for firewall operations (graceful handling)
 * Enhanced IOC processing output with detailed status indicators
-* Comprehensive test suite for Day 13 improvements
+* Comprehensive test suite for current enhancements
 
 ### Problem Statements Fixed:
 
