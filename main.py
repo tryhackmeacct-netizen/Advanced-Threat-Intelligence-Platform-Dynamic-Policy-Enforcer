@@ -11,6 +11,7 @@ import sys
 from core.config import DEFAULT_FEED_INDICATORS, ENABLE_DEMO_FALLBACK
 from core.logger import get_logger
 from core.pipeline import run_demo, run_live
+from policy_enforcer.firewall_manager import unblock_ip
 
 logger = get_logger()
 
@@ -30,6 +31,11 @@ def parse_arguments():
         "--indicators",
         nargs="+",
         help="Space-separated indicators to process (IPs, domains, hashes)",
+    )
+    parser.add_argument(
+        "--rollback",
+        metavar="IP",
+        help="Remove a previously applied firewall block rule",
     )
     return parser.parse_args()
 
@@ -61,6 +67,27 @@ def format_ioc_output(ioc):
 def main():
     """Main entry point for the threat intelligence platform."""
     args = parse_arguments()
+    
+    # Rollback mode
+    if args.rollback:
+        logger.info("Rollback requested for %s", args.rollback)
+
+        success = unblock_ip(args.rollback)
+
+        if success:
+            print("\n" + "=" * 70)
+            print("FIREWALL ROLLBACK SUCCESS")
+            print("=" * 70)
+            print(f"\n✓ Removed firewall block for: {args.rollback}\n")
+            print("=" * 70 + "\n")
+            sys.exit(0)
+
+        print("\n" + "=" * 70)
+        print("FIREWALL ROLLBACK FAILED")
+        print("=" * 70)
+        print(f"\n✗ Unable to remove firewall block for: {args.rollback}\n")
+        print("=" * 70 + "\n")
+        sys.exit(1)
 
     # Determine indicators to process
     indicators = args.indicators if args.indicators else DEFAULT_FEED_INDICATORS
