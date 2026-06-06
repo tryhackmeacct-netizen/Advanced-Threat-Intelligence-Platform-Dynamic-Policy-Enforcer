@@ -7,6 +7,7 @@ MongoDB storage, and dynamic firewall enforcement with SIEM-ready logging.
 
 import argparse
 import sys
+import time
 
 from core.config import DEFAULT_FEED_INDICATORS, ENABLE_DEMO_FALLBACK
 from core.logger import get_logger
@@ -36,6 +37,17 @@ def parse_arguments():
         "--rollback",
         metavar="IP",
         help="Remove a previously applied firewall block rule",
+    )
+    parser.add_argument(
+        "--monitor",
+        action="store_true",
+        help="Run in continuous and monitor for new threat indicators",
+    )
+    parser.add_argument(
+        "--interval",
+        type=int,
+        default=60,
+        help="Monitoring interval in seconds while using --monitor.",
     )
     return parser.parse_args()
 
@@ -101,6 +113,45 @@ def main():
         args.mode.upper(),
         len(indicators),
     )
+    if args.monitor:
+        logger.info(
+            "Starting continuous monitoring mode (interval=%s seconds)",
+            args.interval,
+        )
+
+        while True:
+            try:
+                logger.info("Monitoring cycle started")
+
+                if args.mode == "demo":
+                    inserted = run_demo(indicators)
+                else:
+                    inserted = run_live(indicators)
+
+                logger.info(
+                    "Monitoring cycle complete. Processed %d IOCs",
+                    len(inserted),
+                )
+
+                logger.info(
+                    "Sleeping for %d seconds before next cycle",
+                    args.interval,
+                )
+
+                time.sleep(args.interval)
+
+            except KeyboardInterrupt:
+                logger.warning("Monitoring stopped by user")
+                sys.exit(0)
+
+            except Exception as error:
+                logger.error(
+                    "Monitoring cycle failed: %s",
+                    error,
+                    exc_info=True,
+                )
+
+                time.sleep(args.interval)
     
     try:
         if args.mode == "demo":
