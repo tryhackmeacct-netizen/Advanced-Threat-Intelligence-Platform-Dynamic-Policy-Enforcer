@@ -3,3 +3,12 @@ venv/
 __pycache__/
 logs/
 *.log
+# Elasticsearch certificates
+generated_elastic_certs/*.crt
+generated_elastic_certs/*.key
+generated_elastic_certs/*.csr
+generated_elastic_certs/*.p12
+generated_elastic_certs/*.srl
+
+# Local environment
+.env
