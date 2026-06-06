@@ -6,28 +6,28 @@ A production-ready threat intelligence automation platform that ingests maliciou
 ## Architecture
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Threat Intelligence Platform                  │
+│                    Threat Intelligence Platform                 │
 ├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  OSINT Threat Feeds   →  IOC Normalization  →  Deduplication  │
+│                                                                 │
+│  OSINT Threat Feeds   →  IOC Normalization  →  Deduplication    │
 │  • VirusTotal          • IP/Domain/Hash      • MongoDB Query    │
 │  • AlienVault OTX      • Indicator Cleaning  • Duplicate Check  │
 │  • AbuseIPDB          • Type Inference       • Risk Scoring     │
-│                                                                  │
+│                                                                 │
 │  ↓                                                              │
-│                                                                  │
-│  MongoDB Storage      →  Risk Assessment    →  Firewall Policy│
-│  • Malicious IOCs       • Risk Calculation    • iptables Rules │
-│  • Timestamp Tracking   • 80+ threshold       • Auto-blocking  │
-│  • Source Attribution   • By Feed Source      • High-Risk IPs  │
-│                                                                  │
+│                                                                 │
+│  MongoDB Storage      →  Risk Assessment    →  Firewall Policy  │
+│  • Malicious IOCs       • Risk Calculation    • iptables Rules  │
+│  • Timestamp Tracking   • 80+ threshold       • Auto-blocking   │
+│  • Source Attribution   • By Feed Source      • High-Risk IPs   │
+│                                                                 │
 │  ↓                                                              │
-│                                                                  │
-│  SIEM-Ready Logging   →  SOC Monitoring     →  Compliance    │
-│  • Security Events      • Audit Trail        • Timestamped    │
-│  • Event Types          • Block Events       • Event Details  │
-│  • Risk Scores          • Detection Events   • Source Tracking│
-│                                                                  │
+│                                                                 │
+│  SIEM-Ready Logging   →  SOC Monitoring     →  Compliance       │
+│  • Security Events      • Audit Trail        • Timestamped      │
+│  • Event Types          • Block Events       • Event Details    │
+│  • Risk Scores          • Detection Events   • Source Tracking  │
+│                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -551,7 +551,7 @@ options:
 > 
 > The architecture demonstrates proficiency in threat intelligence concepts, cybersecurity automation, NoSQL database integration, system administration (iptables), and security logging best practices. The pipeline handles both demo data and live API feeds, includes comprehensive error handling, and supports command-line configuration for flexibility.
 
-## Testing Checklist for Interview
+## Testing Checklist
 
 - [ ] Run demo mode: `python3 main.py --mode demo`
 - [ ] Check MongoDB count: `python3 -c "from pymongo import..."`
