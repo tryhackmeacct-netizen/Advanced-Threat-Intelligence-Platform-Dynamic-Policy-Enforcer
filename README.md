@@ -6,84 +6,36 @@ A production-ready threat intelligence automation platform that ingests maliciou
 
 This platform automates the entire threat intelligence lifecycle:
 - **Ingest** malicious IOCs from VirusTotal, AlienVault OTX, and AbuseIPDB
-- **Normalize** indicator format and deduplicate records
-- **Score** threats based on source reputation (60-95 scale)
-- **Store** in MongoDB with proper schema management
-- **Enforce** firewall rules automatically for high-risk indicators
-- **Log** all security events for SIEM integration and compliance
+- **Normalize** indicator format and validate indicators
+- **Deduplicate** entries before storage
+- **Score** threats based on feed reputation and metadata
+- **Store** data in MongoDB for persistence and auditing
+- **Forward** security events to Elasticsearch for Kibana visualization
+- **Enforce** firewall policies automatically for high-risk threats
 
-## 🔄 Security Flow
+## 💼 Architecture
 
-```
-OSINT Feeds (VirusTotal, AlienVault, AbuseIPDB)
-    ↓
-IOC Normalization & Validation
-    ↓
-Deduplication Check (MongoDB)
-    ↓
-Risk Scoring Engine
-    ↓
-MongoDB Storage
-    ↓
-Risk Threshold Evaluation (≥80)
-    ↓
-Dynamic Firewall Enforcement (iptables)
-    ↓
-SIEM-Ready Security Logging
-```
-
-## 📁 Project Structure
+The core processing flow is:
 
 ```
-Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer/
-├── main.py                          # Production entry point with CLI
-├── requirements.txt                 # Python dependencies
-├── README.md                        # This file
-├── REVIEW.md             # Comprehensive review guide (350+ lines)
-├── DAY12_IMPROVEMENTS.md            # Detailed reliability and SIEM improvement notes
-│
-├── core/                            # Core threat processing modules
-│   ├── __init__.py
-│   ├── pipeline.py                  # Main processing pipeline
-│   ├── database.py                  # MongoDB integration
-│   ├── cleaner.py                   # IOC cleaning and validation
-│   ├── deduplicator.py              # Duplicate detection
-│   ├── normalizer.py                # Record normalization
-│   ├── risk_scoring.py              # Risk calculation engine
-│   ├── config.py                    # Configuration management
-│   ├── logger.py                    # Application logging
-│   └── security_logger.py           # SIEM-ready security logging
-│
-├── feeds/                           # OSINT threat intelligence feeds
-│   ├── __init__.py
-│   ├── virustotal.py                # VirusTotal API integration
-│   ├── alienvault.py                # AlienVault OTX API integration
-│   └── abuseipdb.py                 # AbuseIPDB API integration
-│
-├── policy_enforcer/                 # Firewall policy enforcement
-│   ├── __init__.py
-│   └── firewall_manager.py          # Linux iptables integration
-│
-├── data_ingestion/                  # Data ingestion scripts
-│   ├── __init__.py
-│   └── virustotal.py                # Standalone ingestion example
-│
-├── scripts/                         # CLI and policy utilities
-│   └── policy_cli.py                # Policy management CLI utility
-├── es_diagnose.py                   # Elasticsearch TLS connectivity diagnostics
-├── rollback.py                      # Rollback helper for policy enforcement
-├── threat_queue/                    # Resilient SIEM event queue
-│   └── event_queue.py               # Failed forwarding persistence
-│
-├── logs/                            # Runtime logs
-│   ├── ingestion.log                # Application logs
-│   └── security_events.log          # SIEM-ready security events
-│
-├── screenshots/                     # Proof artifacts
-└── docs/                            # Additional documentation
+Threat Feed
+    ↓
+Normalization
+    ↓
+Risk Scoring
+    ↓
+MongoDB
+    ↓
+Elasticsearch
+    ↓
+Kibana
+    ↓
+Firewall Enforcement
 ```
 
-## ✨ Key Features
+![Architecture Diagram](screenshots/architecture_diagram.svg)
+
+## ✨ Features
 
 - ✅ **Multi-Feed OSINT Integration** - VirusTotal, AlienVault OTX, AbuseIPDB
 - ✅ **IOC Normalization** - Supports IP addresses, domains, and file hashes
@@ -98,9 +50,7 @@ Advanced-Threat-Intelligence-Platform-Dynamic-Policy-Enforcer/
 - ✅ **Error Handling** - Comprehensive exception handling and logging
 - ✅ **Demo Mode** - Safe testing without requiring API keys
 
-## 🚀 Quick Start
-
-### Installation
+## 🛠 Installation
 
 ```bash
 # Clone the repository
@@ -118,35 +68,7 @@ pip install -r requirements.txt
 sudo systemctl start mongod
 ```
 
-### Basic Usage
-
-```bash
-# Run in demo mode (no API keys needed)
-python3 main.py --mode demo --indicators 203.0.113.10 198.51.100.20
-
-# Run in live mode (requires API keys in .env)
-python3 main.py --mode live --indicators 8.8.8.8 1.1.1.1
-
-# Show help
-python3 main.py --help
-
-# Policy CLI helper
-python3 scripts/policy_cli.py start-daemon --interval 15
-python3 scripts/policy_cli.py rollback 203.0.113.99 --reason "false_positive"
-```
-
-## 📊 OSINT Feeds
-
-### Supported Threat Intelligence Sources
-
-| Feed | API | Risk Score | Details |
-|------|-----|-----------|---------|
-| **VirusTotal** | Commercial | 90 | Malware detection, 70+ AV engines |
-| **AlienVault OTX** | Free | 85 | Pulse data, community threat intel |
-| **AbuseIPDB** | Free/Pro | 80 | IP reputation, abuse scoring |
-| **DemoFeed** | Demo | 95 | Safe testing without API keys |
-
-### Configure API Keys
+## ⚙️ Configuration (.env)
 
 Create a `.env` file in the project root:
 
@@ -172,6 +94,66 @@ DEFAULT_FEED_INDICATORS=203.0.113.10,198.51.100.20,192.0.2.20
 ENABLE_DEMO_FALLBACK=1
 ```
 
+## ▶️ Running the Project
+
+### Run the main application
+
+```bash
+python3 main.py --mode demo --indicators 203.0.113.10 198.51.100.20
+```
+
+### Run live ingestion
+
+```bash
+python3 main.py --mode live --indicators 8.8.8.8 1.1.1.1
+```
+
+### Use the policy CLI
+
+```bash
+python3 scripts/policy_cli.py start-daemon --interval 15
+python3 scripts/policy_cli.py rollback 203.0.113.99 --reason "false_positive"
+```
+
+## 📸 Screenshots
+
+### Elasticsearch Index Status
+![Elasticsearch](screenshots/elasticsearch_index_status.png)
+
+### Kibana Discover
+![Kibana](screenshots/kibana_discover_threats.png)
+
+### Architecture Diagram
+![Architecture](screenshots/architecture_diagram.svg)
+
+## 🔐 Security Considerations
+
+- Keep `.env` files local and out of source control.
+- Use strong, rotated credentials for Elasticsearch and MongoDB.
+- Prefer secret management systems for production deployments.
+- Do not hardcode credentials or API keys in code.
+- Enforce least privilege for database and Elasticsearch users.
+- Audit firewall changes and SIEM logs for suspicious activity.
+
+## 🚀 Future Improvements
+
+- Add reusable Kibana dashboard templates for threat visualization.
+- Support additional OSINT feeds such as URLHaus and PhishTank.
+- Add container-native deployment with Docker and Kubernetes.
+- Implement automated policy validation and rollback testing.
+- Add centralized secrets management integration.
+
+## 📊 OSINT Feeds
+
+### Supported Threat Intelligence Sources
+
+| Feed | API | Risk Score | Details |
+|------|-----|-----------|---------|
+| **VirusTotal** | Commercial | 90 | Malware detection, 70+ AV engines |
+| **AlienVault OTX** | Free | 85 | Pulse data, community threat intel |
+| **AbuseIPDB** | Free/Pro | 80 | IP reputation, abuse scoring |
+| **DemoFeed** | Demo | 95 | Safe testing without API keys |
+
 ## 💯 Risk Scoring
 
 Risk scores are assigned based on the threat feed source:
@@ -181,7 +163,6 @@ DemoFeed → 95 (Highest - Test Data)
 VirusTotal → 90 (Commercial Intelligence)
 AlienVault → 85 (Community Threat Data)
 AbuseIPDB → 80 (IP Reputation)
-URLHaus → 88 (URL Phishing/Malware)
 Default → 60 (Unknown Source)
 ```
 
@@ -218,44 +199,19 @@ db.ioc_data.countDocuments()
 
 ### Check Firewall Rules
 ```bash
-# List all DROP rules for malicious IPs
 sudo iptables -L INPUT -n | grep DROP
-
-# View all firewall rules
 sudo iptables -S
-
-# View rule count
-sudo iptables -L INPUT -n | grep -c DROP
-
-# Clear all custom rules (if needed)
-sudo iptables -F INPUT
 ```
 
 ### Check Security Logs
 ```bash
-# View SIEM-ready security events
 tail -20 logs/security_events.log
-
-# View application logs
 tail -20 logs/ingestion.log
-
-# Count security events by type
-grep "EVENT=" logs/security_events.log | cut -d'=' -f2 | cut -d'|' -f1 | sort | uniq -c
-
-# Monitor in real-time
-tail -f logs/security_events.log
 ```
 
 ### Check MongoDB service status
 ```bash
 sudo systemctl status mongod
-mongosh --version
-```
-
-### Check Elasticsearch TLS connectivity
-```bash
-# Diagnose Elasticsearch URL, auth, and CA certificate configuration
-python3 es_diagnose.py
 ```
 
 If the CA certificate is not readable by the application user, fix permissions:
