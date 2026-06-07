@@ -86,14 +86,14 @@ What was built:
 - Improved threat intelligence processing workflow
 
 **Risk Scoring System:**
-| Source | Risk Score |
-|--------|-----------|
-| DemoFeed | 95 |
-| VirusTotal | 90 |
-| AlienVault | 85 |
-| AbuseIPDB | 80 |
-| URLHaus | 88 |
-| Default | 60 |
+| Source     | Risk Score |
+|------------|------------|
+| DemoFeed   |     95     |
+| VirusTotal |     90     |
+| AlienVault |     85     |
+| AbuseIPDB  |     80     |
+| URLHaus    |     88     |
+| Default    |     60     |
 
 **Proof:**
 ```

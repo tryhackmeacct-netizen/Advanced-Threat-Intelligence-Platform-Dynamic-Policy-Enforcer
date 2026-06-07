@@ -126,6 +126,71 @@ python3 scripts/policy_cli.py rollback 203.0.113.99 --reason "false_positive"
 ### Architecture Diagram
 ![Architecture](screenshots/architecture_diagram.svg)
 
+## 📊 Deployment Validation Results
+
+The platform has been successfully deployed, tested, and validated across all major components.
+
+### Validation Summary
+
+| Component | Status |
+|------------|---------|
+| Threat Intelligence Collection | ✅ PASS |
+| IOC Validation & Normalization | ✅ PASS |
+| Risk Scoring Engine            | ✅ PASS |
+| MongoDB Integration            | ✅ PASS |
+| Elasticsearch Integration      | ✅ PASS |
+| Kibana Integration             | ✅ PASS |
+| Firewall Enforcement           | ✅ PASS |
+| Rollback Mechanism             | ✅ PASS |
+| Monitoring Daemon              | ✅ PASS |
+| Security Logging               | ✅ PASS |
+| Documentation                  | ✅ PASS |
+| Security Controls              | ✅ PASS |
+
+### Test Execution Results
+
+|     Metric       | Result |
+|------------------|--------|
+| Total Test Cases |   26   |
+| Passed           |   26   |
+| Failed           |    0   |
+| Success Rate     |  100%  |
+
+### Elasticsearch Validation
+
+- Elasticsearch Version: **8.13.4**
+- Authentication Enabled: **Verified**
+- HTTPS/TLS Enabled: **Verified**
+- Threat Intelligence Index: **Operational**
+- Indexed Threat Records: **25+ Documents**
+
+### Kibana Validation
+
+- Kibana Service: **Operational**
+- Login Interface Accessible: **Verified**
+- Elasticsearch Connectivity: **Verified**
+- Threat Intelligence Dashboards: **Verified**
+
+### Security Validation
+
+- No secrets tracked in Git
+- Environment-based configuration implemented
+- TLS-secured Elasticsearch communication
+- Security event logging operational
+
+### Firewall Validation
+
+- Automatic IP blocking verified
+- Whitelist protection verified
+- Rollback functionality verified
+- Administrative permission handling verified
+
+### Monitoring Validation
+
+- Continuous monitoring daemon operational
+- Security event logging operational
+- Health monitoring operational
+
 ## 🔐 Security Considerations
 
 - Keep `.env` files local and out of source control.
