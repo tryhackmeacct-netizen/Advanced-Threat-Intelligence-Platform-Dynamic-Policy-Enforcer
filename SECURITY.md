@@ -21,13 +21,13 @@ logs/          # Runtime logs directory
 
 ### Required Environment Variables
 
-| Variable | Purpose | Required | Example |
-|----------|---------|----------|---------|
-| `ELASTICSEARCH_URL` | Elasticsearch server URL | Yes | `https://localhost:9200` |
-| `ELASTICSEARCH_USER` | Authentication username | Yes | `elastic` |
-| `ELASTICSEARCH_PASSWORD` | Authentication password | **Yes** | `SecurePassword123!` |
-| `ELASTICSEARCH_CA_CERT_PATH` | CA certificate path for TLS | Yes | `/etc/elasticsearch/certs/http_ca.crt` |
-| `ELASTICSEARCH_VERIFY_CERTS` | Enable TLS certificate validation | Optional | `1` (default) |
+| Variable                     | Purpose                           | Required | Example                                |
+|------------------------------|-----------------------------------|----------|----------------------------------------|
+| `ELASTICSEARCH_URL`          | Elasticsearch server URL          | Yes      | `https://localhost:9200`               |
+| `ELASTICSEARCH_USER`         | Authentication username           | Yes      | `elastic`                              |
+| `ELASTICSEARCH_PASSWORD`     | Authentication password           |  **Yes** | `SecurePassword123!`                   |
+| `ELASTICSEARCH_CA_CERT_PATH` | CA certificate path for TLS       | Yes      | `/etc/elasticsearch/certs/http_ca.crt` |
+| `ELASTICSEARCH_VERIFY_CERTS` | Enable TLS certificate validation | Optional | `1` (default)                          |
 
 ### Setup Instructions
 
