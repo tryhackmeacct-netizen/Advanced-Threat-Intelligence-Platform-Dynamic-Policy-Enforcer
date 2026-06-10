@@ -59,12 +59,12 @@ logs/          # Runtime logs directory
 
 ### Supported OSINT Feeds
 
-| Service | Environment Variable | Free | Requires |
-|---------|----------------------|------|----------|
-| VirusTotal | `VIRUSTOTAL_API_KEY` | No | API Key |
-| AlienVault OTX | `ALIENVAULT_API_KEY` | Yes | API Key |
-| AbuseIPDB | `ABUSEIPDB_API_KEY` | Yes (limited) | API Key |
-| Demo Feed | N/A | Yes | Demo Mode |
+| Service        | Environment Variable |      Free     | Requires  |
+|----------------|----------------------|---------------|-----------|
+| VirusTotal     | `VIRUSTOTAL_API_KEY` | No            | API Key   |
+| AlienVault OTX | `ALIENVAULT_API_KEY` | Yes           | API Key   |
+| AbuseIPDB      | `ABUSEIPDB_API_KEY`  | Yes (limited) | API Key   |
+| Demo Feed      |         N/A          | Yes           | Demo Mode |
 
 ### Configure API Keys in `.env`
 
