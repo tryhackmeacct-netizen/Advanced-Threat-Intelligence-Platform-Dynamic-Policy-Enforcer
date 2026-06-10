@@ -12,4 +12,3 @@ generated_elastic_certs/*.srl
 
 # Local environment
 .env
-
