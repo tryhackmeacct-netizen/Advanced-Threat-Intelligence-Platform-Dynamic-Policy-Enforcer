@@ -94,7 +94,7 @@ DEFAULT_FEED_INDICATORS=203.0.113.10,198.51.100.20,192.0.2.20
 ENABLE_DEMO_FALLBACK=1
 ```
 
-## ▶️ Running the Project
+## ▶️ Running the Project go to --> ( docs/VERIFICATION_GUIDE.md )
 
 ### Run the main application
 
